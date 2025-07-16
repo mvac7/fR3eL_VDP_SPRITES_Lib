@@ -1,6 +1,6 @@
 ;--------------------------------------------------------
-; File Created by SDCC : free open source ANSI-C Compiler
-; Version 3.6.0 #9615 (MINGW64)
+; File Created by SDCC : free open source ISO C Compiler 
+; Version 4.4.0 #14620 (MINGW64)
 ;--------------------------------------------------------
 	.module VDP_SPRITES
 	.optsdcc -mz80
@@ -9,13 +9,11 @@
 ; Public variables in this module
 ;--------------------------------------------------------
 	.globl _SPRITEYBUFF
-	.globl _PUTSPRITE
 	.globl _SetSpritePattern
 	.globl _SetSpriteColor
 	.globl _SetSpritePosition
 	.globl _SetSpriteVisible
 	.globl _SetEarlyClock
-	.globl _UnsetEarlyClock
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -49,186 +47,107 @@ _SPRITEYBUFF::
 ; code
 ;--------------------------------------------------------
 	.area _CODE
-;src\VDP_SPRITES.c:58: void PUTSPRITE(char plane, char x, char y, char color, char pattern)
-;	---------------------------------
-; Function PUTSPRITE
-; ---------------------------------
-_PUTSPRITE::
-;src\VDP_SPRITES.c:101: __endasm;
-	push	IX
-	ld	IX,#0
-	add	IX,SP
-	ld	A,4(IX) ;num sprite plane
-	call	GetSPRattrVADDR
-	ld	A,6(IX) ;y
-	call	WriteByte2VRAM ;WRTVRM
-	inc	HL
-	ld	A,5(IX) ;x
-	call	WriteByte2VRAM ;WRTVRM
-	inc	HL
-	ld	E,8(IX)
-	call	setSpritePattern ;pattern
-	inc	HL
-	ld	A,7(IX) ;color
-	call	WriteByte2VRAM ;WRTVRM
-	pop	IX
-	ret
-;	------------------------------------------------------------------------------
-;	Input : A - Sprite number
-;	Output : HL - For the address
-;	same as MSX BIOS CALATR:
-	GetSPRattrVADDR:
-	SLA	A ;*2
-	SLA	A ;*2
-	ld	E,A
-	ld	D,#0
-	ld	HL,#0x1B00
-	add	HL,DE
-;ret
-	ret
-;src\VDP_SPRITES.c:113: void SetSpritePattern(char plane, char pattern)
+;src\VDP_SPRITES.c:49: void SetSpritePattern(char plane, char pattern) __naked
 ;	---------------------------------
 ; Function SetSpritePattern
 ; ---------------------------------
 _SetSpritePattern::
-;src\VDP_SPRITES.c:153: __endasm;
-	push	IX
-	ld	IX,#0
-	add	IX,SP
-	ld	A,4(ix) ;num sprite plane
-	call	GetSPRattrVADDR ;get vram address
+;src\VDP_SPRITES.c:65: __endasm;
+	ld	C,L
+	call	_GetSPRattrVADDR
 	inc	HL
 	inc	HL
-	ld	E,5(ix) ;number of pattern to assign
-	call	setSpritePattern
-	pop	IX
-	ret
-;	set sprite pattern number
-;	Multiply * 4 when its a 16x16 sprite.
-;	E - Sprite Number
-	setSpritePattern:
-	ld	A,(#0xF3DF +1) ; --- read vdp(1) from mem
-	bit	1,A ;Sprite size; 1=16x16
-	jr	Z,WRTPAT
-;if	spritesize = 16x16 then A*4
-	SLA	E
-	SLA	E ;multiplica x4
-	WRTPAT:
-	LD	A,E
-	call	WriteByte2VRAM ;WRTVRM
-;ret
-	ret
-;src\VDP_SPRITES.c:165: void SetSpriteColor(char plane, char color)
+	ld	E,C
+	call	GetSpritePattern
+	jp	WriteByteToVRAM
+;src\VDP_SPRITES.c:66: }
+;src\VDP_SPRITES.c:78: void SetSpriteColor(char plane, char color) __naked
 ;	---------------------------------
 ; Function SetSpriteColor
 ; ---------------------------------
 _SetSpriteColor::
-;src\VDP_SPRITES.c:185: __endasm;
-	push	IX
-	ld	IX,#0
-	add	IX,SP
-	ld	A,4(IX) ;num sprite plane
-	call	GetSPRattrVADDR
+;src\VDP_SPRITES.c:98: __endasm;
+	ld	C,L
+	call	_GetSPRattrVADDR
 	inc	HL
 	inc	HL
 	inc	HL
-	ld	A,5(IX) ;color
-	call	WriteByte2VRAM ;WRTVRM
-	pop	IX
-	ret
-;src\VDP_SPRITES.c:198: void SetSpritePosition(char plane, char x, char y)
+	call	ReadByteFromVRAM
+	bit	7,A
+	ld	A,C
+	jp	Z,WriteByteToVRAM
+	or	#128
+	jp	WriteByteToVRAM
+;src\VDP_SPRITES.c:99: }
+;src\VDP_SPRITES.c:112: void SetSpritePosition(char plane, char x, char y)
 ;	---------------------------------
 ; Function SetSpritePosition
 ; ---------------------------------
 _SetSpritePosition::
-;src\VDP_SPRITES.c:217: __endasm;
+;src\VDP_SPRITES.c:133: __endasm;
 	push	IX
 	ld	IX,#0
 	add	IX,SP
-	ld	A,4(ix) ;num sprite
-	call	GetSPRattrVADDR
-	ld	A,6(ix) ;y
-	call	WriteByte2VRAM ;WRTVRM
-	inc	HL
-	ld	A,5(ix) ;x
-	call	WriteByte2VRAM ;WRTVRM
+	ld	C,L
+	call	_GetSPRattrVADDR
+	ld	A,4(ix)
+	call	WriteByteToVRAM
+	ld	A,C
+	call	_FastVPOKE
 	pop	IX
-	ret
-;src\VDP_SPRITES.c:229: void SetSpriteVisible(char plane, boolean state)
+;src\VDP_SPRITES.c:134: }
+	pop	hl
+	inc	sp
+	jp	(hl)
+;src\VDP_SPRITES.c:148: void SetSpriteVisible(char plane, char state)
 ;	---------------------------------
 ; Function SetSpriteVisible
 ; ---------------------------------
 _SetSpriteVisible::
-;src\VDP_SPRITES.c:271: __endasm;
-	push	IX
-	ld	IX,#0
-	add	IX,SP
-	ld	A,4(ix) ;num sprite
+;src\VDP_SPRITES.c:182: __endasm;
+	ld	C,L
 	ld	IY,#_SPRITEYBUFF
 	ld	D,#0
 	ld	E,A
-	ADD	IY,DE
-	call	GetSPRattrVADDR
-	ld	A,5(ix) ;state
-	or	A ;0 = off
-	jr	Z,SPRITEOFF
-;sprite	ON
+	add	IY,DE
+	call	_GetSPRattrVADDR
+	ld	A,C
+	or	A
+	jr	Z,SPRITE_hide
 	ld	A,(IY)
-	call	WriteByte2VRAM ;WRTVRM
-	pop	IX
-	ret
-;sprite	OFF
-	SPRITEOFF:
-	call	ReadByteFromVRAM ;RDVRM
+	jp	WriteByteToVRAM
+SPRITE_hide:
+	call	ReadByteFromVRAM
 	cp	#0xD1 ; concealment of the sprite outside the limits of the screen in TMS9918A modes
-	jr	Z,ENDOFF ;if not visible then Dont overwrite.
+	ret	Z
 	ld	(IY),A
 	ld	A,#0xD1 ; concealment of the sprite outside the limits of the screen in TMS9918A modes
-	call	WriteByte2VRAM ;WRTVRM
-	ENDOFF:
-	pop	IX
+	jp	WriteByteToVRAM
+;src\VDP_SPRITES.c:183: }
 	ret
-;src\VDP_SPRITES.c:283: void SetEarlyClock(char plane)
+;src\VDP_SPRITES.c:198: void SetEarlyClock(char plane, char state) __naked
 ;	---------------------------------
 ; Function SetEarlyClock
 ; ---------------------------------
 _SetEarlyClock::
-;src\VDP_SPRITES.c:305: __endasm;
-	push	IX
-	ld	IX,#0
-	add	IX,SP
-	ld	A,4(IX)
-	call	GetSPRattrVADDR
+;src\VDP_SPRITES.c:228: __endasm;
+	LD	C,L
+	call	_GetSPRattrVADDR
 	inc	HL
 	inc	HL
 	inc	HL
 	push	HL
-	call	ReadByteFromVRAM ;RDVRM
-	OR	#128
-	pop	HL
-	call	WriteByte2VRAM ;WRTVRM VPOKE
-	pop	IX
-	ret
-;src\VDP_SPRITES.c:316: void UnsetEarlyClock(char plane)
-;	---------------------------------
-; Function UnsetEarlyClock
-; ---------------------------------
-_UnsetEarlyClock::
-;src\VDP_SPRITES.c:337: __endasm;
-	push	IX
-	ld	IX,#0
-	add	IX,SP
-	ld	A,4(IX)
-	call	GetSPRattrVADDR
-	inc	HL
-	inc	HL
-	inc	HL
-	call	ReadByteFromVRAM ;RDVRM
+	call	ReadByteFromVRAM
+	bit	0,C
+	jr	Z,SPRITE_disable
+	or	#128
+	jr	SPRITE_EC_WRVRAM
+SPRITE_disable:
 	and	#127
-	call	WriteByte2VRAM ;WRTVRM
-	pop	IX
-;ret
-	ret
+SPRITE_EC_WRVRAM:
+	pop	HL
+	jp	WriteByteToVRAM
+;src\VDP_SPRITES.c:229: }
 	.area _CODE
 	.area _INITIALIZER
 	.area _CABS (ABS)

@@ -1,19 +1,23 @@
 /* =============================================================================
-  test VDP SPRITE Library
-  Version: 1.3.1 (7/05/2019)
-  Author: mvac7/303bcn
-  Architecture: MSX
-  Format: ROM
-  Programming language: C
-  WEB: 
-  mail: mvac7303b@gmail.com
+# Test Sprites
+
+- Version: 1.4 (11/07/2025)
+- Author: mvac7/303bcn
+- Architecture: MSX
+- Format: MSX ROM 8K
+- Programming language: C and Z80 assembler
+- Compiler: SDCC 4.4 or newer
+
+## Description:
+Test VDP_SPRITE Library
     
-History of versions:
- - v1.3.1 (7/05/2019) < current version
- - v1.3 (30/04/2019) 
- - v1.2 (19/04/2018) 
- - v1.1 ( 2/03/2017)    
- - v1.0 (25/02/2017) First version
+## History of versions:
+- v1.4   (11/07/2025) Update to SDCC (4.1.12) Z80 calling conventions
+- v1.3.1 (7/05/2019)
+- v1.3   (30/04/2019) 
+- v1.2   (19/04/2018) 
+- v1.1   ( 2/03/2017)    
+- v1.0   (25/02/2017) First version
 ============================================================================= */
 
 #include "../include/newTypes.h"
@@ -33,7 +37,7 @@ History of versions:
 
 //  definition of functions  ---------------------------------------------------
 void WAIT(uint cicles);
-char INKEY();
+char INKEY(void);
 
 void VPRINT(byte column, byte line, char* text);  //print in screen 1 or 2
 void VPOKEARRAY(uint vaddr, char* text);
@@ -42,55 +46,88 @@ void LOCATE(char x, char y);
 void PRINT(char* text);
 
 char PEEK(uint address);
-uint PEEKW(uint address);
 
-void setFont();
+void setFont(void);
 
-void setSpritesPatterns();
+void setSpritesPatterns(void);
 void showSprites(char offset);
 
-void testSPRITES();
-void testSpritePosition();
-void testSpriteColor();
-void testSpritePattern();
-void testSpriteVisible();
+void testSPRITES(void);
+void testSpritePosition(void);
+void testSpriteColor(void);
+void testSpritePattern(void);
+void testSpriteVisible(void);
 
 
 
 
 // constants  ------------------------------------------------------------------
 
-const char text01[] = "Test SDCC SPRITES Lib v1.3.1";
+const char text01[] = "Test VDP_SPRITES Lib";
 const char text02[] = "Press any key";
+
+
+// Tileset Color Data - Mode:G1
+// Size=32
+const char tileset_06x8_COL2[]={
+0x94,0x94,0x34,0x34,0xB4,0xB4,0x74,0x74,
+0xF4,0xF4,0xF4,0xF4,0xE4,0xE4,0xE4,0xE4,
+0xF4,0xF4,0xF4,0xF4,0xF4,0xF4,0xF4,0xF4,
+0xF4,0xF4,0xF4,0xF4,0xF4,0xF4,0xF4,0xF4};
+
 
 const char sprcol[8]={12,2,3,7,6,8,9,14};
 
+
+
+// ---------------------------------------------------------
+// tMSgfX devtool v0.9.16.0
+// Project: TestTMS_sprites.PNG
+// ---------------------------------------------------------
+// SpriteSet Pattern Data - Size=16x16 - Mode=Mode1 Monocolor
+// Sprite range: 0 to 9
+// Size=320
 const char SPRITE_DATA[]={
-60,66,165,129,165,153,66,60,
-60,126,219,255,255,219,102,60,
-108,254,254,254,124,56,16,0,
-16,56,124,254,124,56,16,0,
-16,56,84,254,84,16,56,0,
-16,56,124,254,254,16,56,0,
-0,0,0,24,24,0,0,0,
-255,255,255,231,231,255,255,255,
-15,31,61,63,123,124,191,191,159,239,111,31,15,5,5,29,
-192,224,96,192,64,128,128,132,134,222,192,192,128,0,0,192,
-5,7,26,46,111,91,92,91,95,88,111,45,22,2,2,6,
-64,192,184,212,212,106,234,106,234,106,212,212,248,64,64,96,
-3,7,79,207,77,79,44,30,63,63,63,63,31,2,2,6,
-192,226,230,226,162,244,56,124,254,254,254,252,248,64,64,96,
-5,30,63,111,87,110,63,0,7,5,7,4,6,3,2,6,
-96,248,244,234,118,190,124,0,224,96,224,32,96,192,64,96,
-5,7,31,63,127,127,127,125,127,127,120,63,31,4,4,12,
-64,192,240,248,252,252,252,124,252,252,60,248,240,64,64,96,
-7,31,63,63,127,113,127,127,127,126,62,63,31,7,2,6,
-224,248,252,252,254,142,254,254,254,126,124,252,248,224,64,96,
-0,7,31,63,127,113,255,255,123,124,63,31,7,2,2,6,
-0,224,248,252,254,142,255,255,222,62,252,248,224,64,64,96,
-5,30,63,111,87,110,63,0,7,5,7,4,6,3,2,6,
-96,248,244,234,118,190,124,0,224,96,224,32,96,192,64,96
-};
+0x3C,0x42,0xA5,0x81,0xA5,0x99,0x42,0x3C,
+0x3C,0x7E,0xDB,0xFF,0xFF,0xDB,0x66,0x3C,
+0x6C,0xFE,0xFE,0xFE,0x7C,0x38,0x10,0x00,
+0x10,0x38,0x7C,0xFE,0x7C,0x38,0x10,0x00,
+0x10,0x38,0x54,0xFE,0x54,0x10,0x38,0x00,
+0x10,0x38,0x7C,0xFE,0xFE,0x10,0x38,0x00,
+0x00,0x00,0x00,0x18,0x18,0x00,0x00,0x00,
+0xFF,0xFF,0xFF,0xE7,0xE7,0xFF,0xFF,0xFF,
+0x0F,0x1F,0x3D,0x3F,0x7B,0x7C,0xBF,0xBF,
+0x9F,0xEF,0x6F,0x1F,0x0F,0x05,0x05,0x1D,
+0xC0,0xE0,0x60,0xC0,0x40,0x80,0x80,0x84,
+0x86,0xDE,0xC0,0xC0,0x80,0x00,0x00,0xC0,
+0x05,0x07,0x1A,0x2E,0x6F,0x5B,0x5C,0x5B,
+0x5F,0x58,0x6F,0x2D,0x16,0x02,0x02,0x06,
+0x40,0xC0,0xB8,0xD4,0xD4,0x6A,0xEA,0x6A,
+0xEA,0x6A,0xD4,0xD4,0xF8,0x40,0x40,0x60,
+0x03,0x07,0x4F,0xCF,0x4D,0x4F,0x2C,0x1E,
+0x3F,0x3F,0x3F,0x3F,0x1F,0x02,0x02,0x06,
+0xC0,0xE2,0xE6,0xE2,0xA2,0xF4,0x38,0x7C,
+0xFE,0xFE,0xFE,0xFC,0xF8,0x40,0x40,0x60,
+0x05,0x1E,0x3F,0x6F,0x57,0x6E,0x3F,0x00,
+0x07,0x05,0x07,0x04,0x06,0x03,0x02,0x06,
+0x60,0xF8,0xF4,0xEA,0x76,0xBE,0x7C,0x00,
+0xE0,0x60,0xE0,0x20,0x60,0xC0,0x40,0x60,
+0x05,0x07,0x1F,0x3F,0x7F,0x7F,0x7F,0x7D,
+0x7F,0x7F,0x78,0x3F,0x1F,0x04,0x04,0x0C,
+0x40,0xC0,0xF0,0xF8,0xFC,0xFC,0xFC,0x7C,
+0xFC,0xFC,0x3C,0xF8,0xF0,0x40,0x40,0x60,
+0x07,0x1F,0x3F,0x3F,0x7F,0x71,0x7F,0x7F,
+0x7F,0x7E,0x3E,0x3F,0x1F,0x07,0x02,0x06,
+0xE0,0xF8,0xFC,0xFC,0xFE,0x8E,0xFE,0xFE,
+0xFE,0x7E,0x7C,0xFC,0xF8,0xE0,0x40,0x60,
+0x00,0x07,0x1F,0x3F,0x7F,0x71,0xFF,0xFF,
+0x7B,0x7C,0x3F,0x1F,0x07,0x02,0x02,0x06,
+0x00,0xE0,0xF8,0xFC,0xFE,0x8E,0xFF,0xFF,
+0xDE,0x3E,0xFC,0xF8,0xE0,0x40,0x40,0x60,
+0x05,0x1E,0x3F,0x6F,0x57,0x6E,0x3F,0x00,
+0x07,0x05,0x07,0x04,0x06,0x03,0x02,0x06,
+0x60,0xF8,0xF4,0xEA,0x76,0xBE,0x7C,0x00,
+0xE0,0x60,0xE0,0x20,0x60,0xC0,0x40,0x60};
 
 
 
@@ -146,7 +183,7 @@ __endasm;
   INKEY();
   
 //------------------------------------------------------------------------------   
-  SCREEN(2);
+  SCREEN(1);
   setFont();
   
   VPRINT(0,0,"screen 2 (G2)");  
@@ -200,14 +237,9 @@ __endasm;*/
 /* =============================================================================
 One character input (waiting)
 ============================================================================= */
-char INKEY(){
+char INKEY(void){
 __asm
-  push IX
-  ld   IX,#0
-  add  IX,SP  
-  call CHGET
-  ld   L,A
-  pop  IX
+  jp   BIOS_CHGET
 __endasm;
 }
 
@@ -249,19 +281,19 @@ void LOCATE(char x, char y)
 {
 x;y;
 __asm
-  push IX
-  ld   IX,#0
-  add  IX,SP
-  
-  ld   A,4(IX) ;x
-  inc  A       ;incrementa las posiciones para que se situen correctamente en la pantalla
-  ld   H,A
-  ld   A,5(IX) ;y
-  inc  A
-  ld   L,A   
-  call POSIT
-  
-  pop  IX
+	push IX
+	ld   IX,#0
+	add  IX,SP
+
+	ld   A,4(IX) ;x
+	inc  A       ;incrementa las posiciones para que se situen correctamente en la pantalla
+	ld   H,A
+	ld   A,5(IX) ;y
+	inc  A
+	ld   L,A   
+	call POSIT
+
+	pop  IX
 __endasm;
 
 }
@@ -275,85 +307,44 @@ void PRINT(char* text)
 { 
 text;
 __asm
-  push IX
-  ld   IX,#0
-  add  IX,SP
-  
-  ld   L,4(ix)
-  ld   H,5(ix)
-  
 nextCHAR:  
-  ld   A,(HL)
-  or   A
-  jr   Z,ENDnext   
-  call CHPUT //Displays one character (BIOS)
-  inc  HL
-  jr   nextCHAR
-ENDnext:  
-  pop  IX
+	ld   A,(HL)
+	or   A
+	ret   Z
+	call BIOS_CHPUT //Displays one character (BIOS)
+	inc  HL
+	jr   nextCHAR
 __endasm; 
 }
 
 
 
-char PEEK(uint address)
+char PEEK(uint address) __naked
 {
-  address;
+address;
 __asm
-  push IX
-  ld   IX,#0
-  add  IX,SP
-  
-  ld   L,4(IX)
-  ld   H,5(IX)
-  
-  ld   L,(HL)
-  
-  pop  IX  
+
+  ld   A,(HL)
+
+  ret
 __endasm;
 }
 
 
 
-uint PEEKW(uint address)
+void setFont(void)
 {
-  address;
-__asm
-  push IX
-  ld   IX,#0
-  add  IX,SP
-  
-  ld   L,4(ix)
-  ld   H,5(ix)
-  ld   E,(HL)
-  inc  HL
-  ld   D,(HL)
-  ex   DE,HL  
-  
-  pop  IX  
-__endasm;
-}
-
-
-
-
-void setFont()
-{
-  uint ROMfont = PEEKW(CGTABL);
-
-  CopyToVRAM(ROMfont,BASE12,0x800);       //MSX font pattern
-  CopyToVRAM(ROMfont,BASE12+0x800,0x800); //MSX font pattern
-  CopyToVRAM(ROMfont,BASE12+0x1000,0x800); //MSX font pattern
-  FillVRAM(BASE11,0x1800,0xF4);           //colors
-
-  return;
+	unsigned int BIOSfont = *(unsigned int *) CGTABL; //get BIOS font address
+	CopyToVRAM(BIOSfont,G1_PAT,0x800);
+	CopyToVRAM((uint) tileset_06x8_COL2,G1_COL,32);
+	//FillVRAM(G1_COL,32,0xF4);
 }
 
 
 
 
 // TEST SPRITES  ###############################################################
-void testSPRITES()
+void testSPRITES(void)
 {
   char posY=2;
   
@@ -429,7 +420,7 @@ void testSPRITES()
 
 
 // Copy sprites data from memory to VRAM
-void setSpritesPatterns()
+void setSpritesPatterns(void)
 {
   HALT;
   CopyToVRAM((uint) SPRITE_DATA,BASE14,32*10);
@@ -460,7 +451,7 @@ void showSprites(char offset)
 
 
 // TEST SETSPRITEVISIBLE  ######################################################
-void testSpriteVisible()
+void testSpriteVisible(void)
 {
   byte i,o;
 
@@ -484,7 +475,7 @@ void testSpriteVisible()
 
 
 // TEST SETSPRITEPATTERN  ######################################################
-void testSpritePattern()
+void testSpritePattern(void)
 {
   byte i;
 
@@ -501,7 +492,7 @@ void testSpritePattern()
 
 
 // TEST SETSPRITECOLOR  ########################################################
-void testSpriteColor()
+void testSpriteColor(void)
 {
   byte i;
 
@@ -518,7 +509,7 @@ void testSpriteColor()
 
 
 // TEST SETSPRITEPOSITION  #####################################################
-void testSpritePosition()
+void testSpritePosition(void)
 {
   uint i=0;
   char gradX = 64;

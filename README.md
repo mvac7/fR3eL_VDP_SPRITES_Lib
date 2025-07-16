@@ -1,102 +1,116 @@
 # VDP SPRITES MSX SDCC Library (fR3eL Project)
 
-```
-Author: mvac7 [mvac7303b@gmail.com]
-Architecture: MSX
-Format: C Object (SDCC .rel)
-Programming language: C and Z80 assembler
-```
+<table>
+<tr><td>Name</td><td>VDP_SPRITES</td></tr>
+<tr><td>Architecture</td><td>MSX</td></tr>
+<tr><td>Environment</td><td>ROM, MSX-DOS, MSX BASIC</td></tr>
+<tr><td>Format</td><td>SDCC Relocatable object file (.rel)</td></tr>
+<tr><td>Programming language</td><td>C and Z80 assembler</td></tr>
+<tr><td>Compiler</td><td>SDCC v4.4 or newer</td></tr>
+</table>
 
-
-
-## Sorry!: This text is pending correction of the English translation. <<<<<<<<
-
-
-
+---
 
 ## Description
 
-Open Source library with functions to directly access to Sprites of the TMS9918A.
+C Library functions for directly accessing sprite attributes from the TMS9918A/28A/29A video processor.
 
-Provides a set of functions for displaying Sprites, both fully (PUTSPRITE) and specific (positioning, color, pattern, visibility and EarlyClock).
+Provides a set of sprite-specific functions, including positioning, color, pattern mapping, visibility, and EarlyClock.
 
-Contains the PUTSPRITE function similar to that of MSX BASIC.
+It is complemented with the [VDP_TMS9918A_MSXBIOS](https://github.com/mvac7/SDCC_VDP_TMS9918A_MSXROM_Lib) Library, necessary for the initialization of the screen and sprites mode.
 
-It is complemented with the [VDP TMS9918A MSX Library](https://github.com/mvac7/SDCC_TMS9918A_Lib), necessary for the initialization of the screen (screen and sprites mode).
+You can combine the use of this library's functions with the PUTSPRITE function included in the VDP_TMS9918A library, which allows for a more agile way of initializing a Sprite.
 
-It does not use the MSX BIOS, so it is suitable for creating applications for MSX-DOS and ROM format.
-  
-Use them for developing MSX applications using [Small Device C Compiler (SDCC)](http://sdcc.sourceforge.net/) cross compiler.
+This library is designed to be used only with TMS9918A VDP Sprites.
+It can be used in Graphic 3 mode (Screen 4) on the V9938 or higher, but will not display correctly, as the color mapping and EarlyClock functions will not work because they must write to a separate color table. 
+This functionality has not been added to this library to keep its size small.
 
-In the source code (\examples), you can find applications for testing and learning purposes.
+It uses MSX BIOS functions, so it is designed to develop applications in ROM or MSXBASIC environments, using the Small Device C Compiler [(SDCC)](http://sdcc.sourceforge.net/) cross compiler.
 
-This library is part of the [MSX fR3eL Project](https://github.com/mvac7/SDCC_MSX_fR3eL).
+You can access the documentation here with [`How to use the library`](docs/HOWTO.md).
+
+These libraries are part of the [MSX fR3eL Project](https://github.com/mvac7/SDCC_MSX_fR3eL).
+
+This project is open source under the [MIT license](LICENSE).
+You can add part or all of this code in your application development or include it in other libraries/engines.
 
 Enjoy it!
 
+<br/>
 
+---
 
+### About the Sprite libraries
 
-## History of versions
+I'm developing several libraries for managing MSX sprites, considering different runtime environments (ROM, MSX-DOS, or MSX BASIC) and different requirements, such as compactness, optimality, or compatibility with V9938.
+ 
+Regarding this last point, I found it interesting to be able to create libraries that take advantage of the sprites' features in Graphic 3 mode (Screen 4), since MSX1 games can be created that look much better when run on computers with V9938, without consuming too many resources.
 
-- v1.0 (04/05/2019) <<current version>>
+These libraries focus more on hardware access and provide little improvement for video game development.
+It's possible that, with what I've learned from developing these libraries, I could develop a library in the future that simplifies the handling of composite moving figures (multiple sprite planes).
 
+<br/>
 
+---
 
-## Requirements
+## History of versions (dd/mm/yyyyy):
+- v1.2 (11/07/2025) 
+	- Update to SDCC (4.1.12) Z80 calling conventions
+	- Move PUTSPRITE function to VDP_TMS9918A library
+	- Merge UnsetEarlyClock functionality into SetEarlyClock
+	- Maintain the EarlyClock value in the SetSpriteColor function
+- v1.1 (2/2/2017)
+- v1.0 ?
 
-* Small Device C Compiler (SDCC) v3.9 http://sdcc.sourceforge.net/
-* Hex2bin v2.5 http://hex2bin.sourceforge.net/ 
-* [VDP TMS9918A MSX SDCC Library](https://github.com/mvac7/SDCC_TMS9918A_Lib)
+<br/>
 
+---
 
+## Requirements for compile
 
-## Acknowledgments
-  
-I want to give a special thanks to all those who freely share their knowledge with the MSX developer community.
+- [Small Device C Compiler (SDCC) v4.4](http://sdcc.sourceforge.net/)
+- [Hex2bin v2.5](http://hex2bin.sourceforge.net/)
 
-* Avelino Herrera > [WEB](http://msx.atlantes.org/index_es.html)
-* Nerlaska > [Blog](http://albertodehoyonebot.blogspot.com.es)
-* Marq/Lieves!Tuore > [Marq](http://www.kameli.net/marq/) [Lieves!Tuore](http://www.kameli.net/lt/)
-* [Fubukimaru](https://github.com/Fubukimaru) > [Blog](http://www.gamerachan.org/fubu/)
-* Andrear > [Blog](http://andrear.altervista.org/home/msxsoftware.php)
-* Ramones > [MSXblog](https://www.msxblog.es/tutoriales-de-programacion-en-ensamblador-ramones/) - [MSXbanzai](http://msxbanzai.tni.nl/dev/faq.html)
-* Sapphire/Z80ST > [WEB](http://z80st.auic.es/)
-* Fernando García > [youTube](https://www.youtube.com/user/bitvision)
-* Eric Boez > [gitHub](https://github.com/ericb59)
-* MSX Assembly Page > [WEB](http://map.grauw.nl/resources/msxbios.php)
-* Portar MSX Tech Doc > [WEB](https://problemkaputt.de/portar.htm)
-* MSX Resource Center > [WEB](http://www.msx.org/)
-* Karoshi MSX Community (RIP 2007-2020)
-* BlueMSX emulator >> [WEB](http://www.bluemsx.com/)
-* OpenMSX emulator >> [WEB](http://openmsx.sourceforge.net/)
-* Meisei emulator >> ?
+<br/>
 
-
-
-## Notes about operation
-
-This library provides functions to facilitate the use of Sprites of the TMS9918A 
-and is supported by the library VDP_TMS9918A_Lib, necessary for the 
-initialization of the graphic modes and for the writing / reading of the VRAM.
-
-It is designed for the creation of applications for MSX-DOS (.COM). It can be 
-used for the development of ROMs, but I recommend the use of libraries based on 
-the BIOS (VDP_TMS9918A_MSXROM_Lib and VDP_SPRITES_MSXROM_Lib), since they are 
-lighter, thereby gaining more space for our software.
-
-It is not useful for graphic mode G3 (screen 4), V9938 or higher, since it does 
-not write in the color table of the sprites when a color is assigned or for the 
-Early Clock. I have projected a specific library for this purpose.
-
-
+---
 
 ## Functions
 
-* void **PUTSPRITE**(char plane, char x, char y, char color, char pattern) - Displays the sprite pattern.
-* void **SetSpritePattern**(char plane, char pattern) - Assign a pattern to a sprite plane.
-* void **SetSpriteColor**(char plane, char color) - Assign a color to a sprite plane.
-* void **SetSpritePosition**(char plane, char x, char y) - Assigns the position coordinates of a sprite plane.
-* void **SetSpriteVisible**(char plane, boolean state) - Hides or shows a sprite plane.
-* void **SetEarlyClock**(char plane) - Apply the Early Clock of a sprite plane. Move 32 points to the left the X position of the sprite.
-* void **UnsetEarlyClock**(char plane) - Disables the Early Clock. Restore the position of a sprite plane.
+| Name | Declaration | Description |
+| ---  | ---   | ---         |
+| SetSpritePattern  | `SetSpritePattern(char plane, char pattern)` | Assign a pattern to a sprite plane |
+| SetSpriteColor    | `SetSpriteColor(char plane, char color)` | Assign a color to a sprite plane |
+| SetSpritePosition | `SetSpritePosition(char plane, char x, char y)` | Assigns the position coordinates of a sprite plane |
+| SetSpriteVisible  | `SetSpriteVisible(char plane, char state)` | Hides or shows a sprite plane |
+| SetEarlyClock     | `SetEarlyClock(char plane, char state)` | Enable or Disable the EarlyClock of a sprite plane. Move 32 points to the left the X position of the sprite |
+
+<br/>
+
+---
+
+## Code Examples
+
+The project includes several examples that I have used to test the library and that can help you learn how to use this library.
+
+You can find them in the [`examples/`](examples/) folder.
+
+<br/>
+
+### Example 1 (ROM)
+
+Example included in the HOWTO document.
+
+[`examples/Example01`](examples/Example01)
+
+![Example screenshot](examples/data/EXAMPLE1_01.png) 
+
+<br/>
+
+### Example 2 (ROM)
+
+Example where the Sprite functions included in the VDP_TMS9918A and VDP_SPRITES libraries are tested.
+
+[`examples/Example02`](examples/Example02)
+
+![Example screenshot](examples/data/EXAMPLE2_02.png) 

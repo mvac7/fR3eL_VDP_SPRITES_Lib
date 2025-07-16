@@ -1,10 +1,10 @@
 /* =============================================================================   
 # VDP_SPRITE MSX SDCC Library (fR3eL Project)
 
-- Version: 1.0 (04/05/2019)
+- Version: 1.2 (11/07/2025)
 - Author: mvac7/303bcn
 - Architecture: MSX
-- Format: C object (SDCC .rel)
+- Format: SDCC Relocatable object file (.rel)
 - Programming language: C and Z80 assembler
 - Compiler: SDCC 4.4 or newer 
 
@@ -12,24 +12,22 @@
 Open Source library with functions to directly access to sprites of the 
 TMS9918A.
 
-It uses the functions from the MSX BIOS, so it is designed to create 
-applications in ROM format.
-  
 It's complemented with the VDP TMS9918A MSX SDCC Library (fR3eL Project).
  https://github.com/mvac7/SDCC_TMS9918A_Lib
 
-For SDCC 3.9 or higher.
 
-##History of versions (dd/mm/yyyyy):
+## History of versions (dd/mm/yyyyy):
+- v1.2 (11/07/2025) 
+	- Update to SDCC (4.1.12) Z80 calling conventions
+	- Move PUTSPRITE function to VDP_TMS9918A library
+	- Merge UnsetEarlyClock functionality into SetEarlyClock
+	- Maintain the EarlyClock value in the SetSpriteColor function
 - v1.1 (2/2/2017)
 - v1.0 ?
 ============================================================================= */ 
 
 #include "../include/VDP_SPRITES.h"
-
 #include "../include/msxSystemVariables.h"
-//#include "../include/msxBIOS.h"
-
 
 
 
@@ -43,7 +41,7 @@ char SPRITEYBUFF[32];
 
 /* =============================================================================
 SetSpritePattern
-Description:
+Description: 
 		Assign a pattern to a sprite plane.
 Input:	[char] sprite plane (0-31) 
 		[char] pattern
@@ -55,17 +53,15 @@ plane;		//A
 pattern;	//L
 __asm
 
-	ld   E,L
+	ld   C,L
 	
-	call _GetSPRattrVADDR	//Input:A-plane; Output:HL-VRAM addr
+	call _GetSPRattrVADDR	//Input: A -->plane; Output: HL -->VRAM addr
 	inc  HL
 	inc  HL
 
-//	ld   A,C	//number of pattern to assign  
-	call GetSpritePattern	//Input:E -->Sprite pattern; Output:E
-	ld   A,E
-	
-	jp   WriteByte2VRAM
+	ld   E,C
+	call GetSpritePattern	//Input: E -->Sprite pattern; Output: A -->pattern position
+	jp   WriteByteToVRAM
 
 __endasm;
 }
@@ -87,14 +83,18 @@ color;	//L
 __asm
 	ld   C,L
 	
-	call GetSPRattrVADDR	//Input:A-plane; Output:HL-VRAM addr
+	call _GetSPRattrVADDR	//Input: A -->plane; Output: HL -->VRAM addr
 
 	inc  HL
 	inc  HL
 	inc  HL
 
+	call ReadByteFromVRAM	//Read VRAM
+	bit  7,A
 	ld   A,C
-	jp   WriteByte2VRAM
+	jp   Z,WriteByteToVRAM	//write to VRAM (OAM) without EarlyClock
+	or   #128				//turn EarlyClock bit ON
+	jp   WriteByteToVRAM	//write to VRAM (OAM)
 
 __endasm;
 }
@@ -122,10 +122,10 @@ __asm
 
 	ld   C,L
 	
-	call GetSPRattrVADDR	//Input:A-plane; Output:HL-VRAM addr
+	call _GetSPRattrVADDR	//Input: A -->plane; Output: HL -->VRAM addr
 
 	ld   A,4(ix)	//y
-	call WriteByte2VRAM
+	call WriteByteToVRAM
 
 	ld   A,C		//x
 	call _FastVPOKE
@@ -141,10 +141,12 @@ SetSpriteVisible
 Description: 
 		Hides or shows a sprite plane.
 Input:	[char] sprite plane (0-31) 
-		[boolean] visible state
+		[char] or [boolean]/[switcher] visible state: 
+														0/false/OFF = hidden
+														1/true/ON = visible
 Output:	-
 ============================================================================= */
-void SetSpriteVisible(char plane, boolean state)
+void SetSpriteVisible(char plane, char state)
 {
 plane;	//A
 state;	//L
@@ -155,9 +157,9 @@ __asm
 	ld   IY,#_SPRITEYBUFF
 	ld   D,#0
 	ld   E,A
-	ADD  IY,DE
+	add  IY,DE
 
-	call GetSPRattrVADDR	//Input:A-plane; Output:HL-VRAM addr
+	call _GetSPRattrVADDR	//Input: A -->plane; Output: HL -->VRAM addr
 
 	ld   A,C				//state
 	or   A					//0 = off
@@ -165,18 +167,18 @@ __asm
 
 //makes the sprite visible
 	ld   A,(IY)				//restore Y value  
-	jp   WriteByte2VRAM		//write to VRAM (OAM)
+	jp   WriteByteToVRAM	//write to VRAM (OAM)
 
 
 //hide the sprite
 SPRITE_hide:
-	call _VPEEK	//read a byte from VRAM. Input:HL=VRAMaddr; Output:A
+	call ReadByteFromVRAM	//read a byte from VRAM. Input:HL=VRAMaddr; Output:A
 	cp   #YHIDDEN
-	ret  Z				//if sprite hidden then Dont overwrite 
+	ret  Z					//if sprite hidden then Dont overwrite 
 
-	ld   (IY),A			//save the Y coordinate
+	ld   (IY),A				//save the Y coordinate
 	ld   A,#YHIDDEN
-	jp   WriteByte2VRAM	//write the hiding position
+	jp   WriteByteToVRAM	//write the hiding position
   
 __endasm;
 }
@@ -202,27 +204,27 @@ __asm
 
 	LD   C,L	//<--- state
 	
-	call GetSPRattrVADDR	//Input:A-plane; Output:HL-VRAM addr
+	call _GetSPRattrVADDR	//Input: A -->plane; Output: HL -->VRAM addr
 
 	inc  HL
 	inc  HL
-	inc  HL		//set the address to the color position
+	inc  HL					//set the address to the color position
 	push HL
 
-	call _VPEEK	//read a byte from VRAM. Input:HL=VRAMaddr; Output:A
+	call ReadByteFromVRAM	//read a byte from VRAM. Input:HL=VRAMaddr; Output:A
   
-	bit  0,C	//IF state enable?
+	bit  0,C				//IF state enable?
 	jr   Z,SPRITE_disable
 	
-	or   #128	//enable EC
+	or   #128				//enable EC
 	jr   SPRITE_EC_WRVRAM
 
 SPRITE_disable:
-	and  #127	//disable EC
+	and  #127				//disable EC
  
 SPRITE_EC_WRVRAM: 
 	pop  HL
-	jp   WriteByte2VRAM
+	jp   WriteByteToVRAM
 
 __endasm;
 }
