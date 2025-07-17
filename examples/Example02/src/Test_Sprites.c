@@ -14,7 +14,9 @@ Perform a test of the functions of the VDP SPRITE library for MSX ROM
 environment.
     
 ## History of versions (dd/mm/yyyy):
-- v1.4 (10/06/2025) < Update to SDCC (4.1.12) Z80 calling conventions
+- v1.4 (10/06/2025)
+	- Update to SDCC (4.1.12) Z80 calling conventions.
+	- Added display of test parameters.
 - v1.3.1 (7/05/2019)
 - v1.3 (30/04/2019) 
 - v1.2 (19/04/2018) 
@@ -27,6 +29,7 @@ environment.
 #include "../include/msxSystemVariables.h"
 
 #include "../include/VDP_TMS9918A.h"
+#include "../include/VDP_PRINT.h"
 #include "../include/VDP_SPRITES.h"
 
 
@@ -41,28 +44,25 @@ environment.
 void WAIT(uint cicles);
 char INKEY(void);
 
-//void CLS(void);
+//void VPRINT(char column, char line, char* text);  //print in screen 1 or 2
+//void VPOKEARRAY(uint vaddr, char* text);
 
-void VPRINT(char column, char line, char* text);  //print in screen 1 or 2
-void VPOKEARRAY(uint vaddr, char* text);
-
+void VLocateNL(void);
 void LOCATE(char x, char y);
-void PRINT(char* text);
 
-char PEEK(uint address);
+//char PEEK(uint address);
 
 void setFont(void);
 
 void setSpritesPatterns(void);
 void showSprites(char offset);
+void setTestSPRcolor(char ncolor);
 
 void testSPRITES(void);
 void testSpritePosition(void);
 void testSpriteColor(void);
 void testSpritePattern(void);
 void testSpriteVisible(void);
-
-
 
 
 // constants  ------------------------------------------------------------------
@@ -131,7 +131,7 @@ const char SIN[]={
 
 
 char _LineLength;  //sprites per line. TMS9918=4; V9938=8
-
+char cursorY;
 
 
 // Functions -------------------------------------------------------------------
@@ -144,9 +144,14 @@ void main(void)
 //------------------------------------------------------------------------------   
 	SCREEN(1);
 	CLS();
+	
+	cursorY=0;
 
-	VPRINT(0,0,text01);
-	VPRINT(0,1,"Graphic1 (SCREEN 1)");
+	VLocateNL();
+	VPRINT(text01);
+	VLocateNL();
+	VPRINT("Graphic1 (SCREEN 1)");
+	
 	_LineLength=4; 
 	testSPRITES();
 
@@ -171,9 +176,11 @@ void main(void)
 //END --------------------------------------------------------------------------  
   
 	//COLOR(15,4,4);
-	SCREEN(1);
+	CLS();
+	//ClearSprites();
 
-	VPRINT(0,0,"End of the test...");
+	VLOCATE(0,0);
+	VPRINT("End of the test...");
 	WAIT(30*10);
   
 }
@@ -206,18 +213,18 @@ void WAIT(uint cicles)
 
 
 //print in screen 1 or 2
-void VPRINT(char column, char line, char* text)
+/*void VPRINT(char column, char line, char* text)
 {
 	uint vaddr = BASE10 + (line*32)+column; // calcula la posicion en la VRAM
 	VPOKEARRAY(vaddr, text);
-}
+}*/
 
 
 
-void VPOKEARRAY(uint vaddr, char* text)
+/*void VPOKEARRAY(uint vaddr, char* text)
 {
 	while(*(text)) VPOKE(vaddr++,*(text++));
-}
+}*/
 
 
 
@@ -253,7 +260,7 @@ __endasm;
 /* =============================================================================
    Print a text in screen
 ============================================================================= */
-void PRINT(char* text) __naked
+/*void PRINT(char* text) __naked
 { 
 text;
 __asm
@@ -267,18 +274,18 @@ nextCHAR:
 	jr   nextCHAR
 
 __endasm; 
-}
+}*/
 
 
 
-char PEEK(uint address) __naked
+/*char PEEK(uint address) __naked
 {
 address;
 __asm
 	ld   A,(HL)
 	ret  
 __endasm;
-}
+}*/
 
 
 
@@ -298,74 +305,90 @@ void setFont(void)
 // TEST SPRITES  ###############################################################
 void testSPRITES(void)
 {
-	char posY=2;
-
 	setSpritesPatterns();
-	VPRINT(0,posY++, "----------VDP_TMS9918A Functions");
+	
+	VLocateNL();
+	VPRINT("----------VDP_TMS9918A Functions");
 
 	// sprites 8x8
-	VPRINT(0,posY++, "SetSpritesSize(0) SPRITES 8x8");
+	VLocateNL();
+	VPRINT("SetSpritesSize(0) SPRITES 8x8");
 	SetSpritesSize(0);
 	SetSpritesZoom(false);  
 	showSprites(0);
 	WAIT(50);
 
 	// test sprites 16x16
-	VPRINT(0,posY++, "SetSpritesSize(1) SPRITES 16x16");
+	VLocateNL();
+	VPRINT("SetSpritesSize(1) SPRITES 16x16");
+	ClearSprites();
 	SetSpritesSize(1);
 	showSprites(2);
 	WAIT(50);
 
-	// test sprites 16x16 + zoom  
-	VPRINT(0,posY++, "SetSpritesZoom(true) SPRITES x2");
+	// test sprites 16x16 + zoom
+	VLocateNL();
+	VPRINT("SetSpritesZoom(true) SPRITES x2");
 	SetSpritesZoom(true);
-	WAIT(50);
+	WAIT(100);
 
 	//test clear sprites data
-	VPRINT(0,posY++, "ClearSprites()");
+	VLocateNL();
+	VPRINT("ClearSprites()");
 	ClearSprites();
 	WAIT(100);
 
 	setSpritesPatterns();
-	VPRINT(0,posY++, "PUTSPRITE(plane,x,y,color,nSPR)");
+	VLocateNL();
+	VPRINT("PUTSPRITE(plane,x,y,color,nSPR)");
 	showSprites(2);
 
 	WAIT(50);
-	posY++;  
-	VPRINT(0,posY++, "-----------VDP_SPRITES Functions");
+	cursorY++;
+	VLocateNL();
+	VPRINT("-----------VDP_SPRITES Functions");
 
-	VPRINT(0,posY++, "SetSpriteVisible(plane,state)");
 	testSpriteVisible();
 
-	VPRINT(0,posY++, "SetSpritePattern(plane,nSPR)"); 
 	testSpritePattern();
 
-	VPRINT(0,posY++, "SetSpriteColor(plane,color)"); 
 	testSpriteColor();
-
-	VPRINT(0,posY++, "SetSpritePosition(plane,x,y)");
+	
 	testSpritePosition();
 
 	WAIT(50);
 
-	VPRINT(0,posY++, "SetEarlyClock(0,ON)");
+	VLocateNL();
+	VPRINT("SetEarlyClock(0,ON)");
 	SetEarlyClock(7,ON);
 	WAIT(50);
 
-	VPRINT(0,posY++, "Modify color with EC enabled"); 
+	VLocateNL();
+	VPRINT("Modify color with EC enabled"); 
+	VLocateNL();
+	VPRINT("SetSpriteColor(7,7)"); 
 	SetSpriteColor(7, 7);
 	WAIT(50);
 
-	VPRINT(0,posY++, "SetEarlyClock(0,OFF)");
+	VLocateNL();
+	VPRINT("SetEarlyClock(0,OFF)");
 	SetEarlyClock(7,OFF);
 	WAIT(50);
 
-	posY+=2;
-	VPRINT(0,posY, text02);
-	LOCATE(14,posY);
+	cursorY+=2;
+	VLOCATE(0,cursorY);
+	VPRINT(text02);
+	
+	LOCATE(11,cursorY);
 	INKEY();
 }
 
+
+
+void VLocateNL(void)
+{
+	VLOCATE(0,cursorY++);
+}
 
 
 
@@ -393,7 +416,19 @@ void showSprites(char offset)
 			X=0;
 			Y++;
 		}
+		WAIT(25);
 	}
+}
+
+
+
+void setTestSPRcolor(char ncolor)
+{
+	VLOCATE(0,cursorY);
+	VPRINT("SetSpriteColor(7,");
+	VPrintFNumber(ncolor,32,2);
+	VPRINT(")");
+	SetSpriteColor(7, ncolor);
 }
 
 
@@ -409,11 +444,17 @@ void testSpriteVisible(void)
 	{
 		for(o=0;o<8;o++)
 		{
-			if (o==i) SetSpriteVisible(o,true);
-			else SetSpriteVisible(o,false);  
+			if (o==i){
+				VLOCATE(0,cursorY);
+				VPRINT("SetSpriteVisible(");
+				VPrintFNumber(o,32,1);
+				VPRINT(",1)");
+				SetSpriteVisible(o,ON);
+			}else SetSpriteVisible(o,OFF);  
 		}
 		WAIT(25);  
-	}  
+	}
+	cursorY++;
 }
 
 
@@ -427,9 +468,14 @@ void testSpritePattern(void)
 
 	for(i=2;i<10;i++)
 	{
+		VLOCATE(0,cursorY);
+		VPRINT("SetSpritePattern(7,");
+		VPrintFNumber(i,32,1);
+		VPRINT(")");
 		SetSpritePattern(7, i);
 		WAIT(25);  
-	}  
+	}
+	cursorY++;
 }
 
 
@@ -441,9 +487,11 @@ void testSpriteColor(void)
 
 	for(i=0;i<16;i++)
 	{
-		SetSpriteColor(7, i);
+		setTestSPRcolor(i);
 		WAIT(25);  
-	}  
+	}
+	setTestSPRcolor(14);
+	cursorY++;	
 }
 
 
@@ -454,17 +502,25 @@ void testSpritePosition(void)
 	uint i=0;
 	char gradX = 64;
 	char gradY = 0;
+	char posX;
+	char posY;
 	
-	SetSpriteColor(7, 14);
-
 	for(i=0;i<660;i++)
 	{
 		HALT;
-		SetSpritePosition(7, SIN[gradX], SIN[gradY]);
+		posX=SIN[gradX];
+		posY=SIN[gradY];
+		VLOCATE(0,cursorY);
+		VPRINT("SetSpritePosition(7,");
+		VPrintFNumber(posX,32,3);
+		VPRINT(",");
+		VPrintFNumber(posY,32,3);
+		VPRINT(")");
+		SetSpritePosition(7,posX,posY);
 		gradX++;
 		gradY++;
-		//if(posT>255) posT=0;  
 	}
+	cursorY++;
 }
 
 
