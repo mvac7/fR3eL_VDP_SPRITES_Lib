@@ -59,8 +59,12 @@ It's possible that, with what I've learned from developing these libraries, I co
 	- Move PUTSPRITE function to VDP_TMS9918A library
 	- Merge UnsetEarlyClock functionality into SetEarlyClock
 	- Maintain the EarlyClock value in the SetSpriteColor function
-- v1.1 (2/2/2017)
-- v1.0 ?
+	- Compatibility with the VDP_TMS9918A_MSXBIOS library
+- v1.1 ???
+- v1.0 (04/05/2019) First Version
+
+
+1.0 (04/05/2019)
 
 <br/>
 

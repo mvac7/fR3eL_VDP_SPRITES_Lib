@@ -9,11 +9,13 @@
 - Compiler: SDCC 4.4 or newer 
 
 ## Description:
-Open Source library with functions to directly access to sprites of the 
-TMS9918A.
+C Library functions for directly accessing sprite attributes from the 
+TMS9918A/28A/29A video processor.
 
-It's complemented with the VDP TMS9918A MSX SDCC Library (fR3eL Project).
- https://github.com/mvac7/SDCC_TMS9918A_Lib
+This library requires one of the VDP access libraries TMS9918A from 
+the fR3eL project:
+- https://github.com/mvac7/fR3eL_VDP_TMS9918A_Lib
+- https://github.com/mvac7/fR3eL_VDP_TMS9918A_MSXBIOS_Lib
 
 
 ## History of versions (dd/mm/yyyyy):
@@ -22,8 +24,9 @@ It's complemented with the VDP TMS9918A MSX SDCC Library (fR3eL Project).
 	- Move PUTSPRITE function to VDP_TMS9918A library
 	- Merge UnsetEarlyClock functionality into SetEarlyClock
 	- Maintain the EarlyClock value in the SetSpriteColor function
-- v1.1 (2/2/2017)
-- v1.0 ?
+	- Compatibility with the VDP_TMS9918A_MSXBIOS library
+- v1.1 ???
+- v1.0 (04/05/2019) First Version
 ============================================================================= */ 
 
 #include "../include/VDP_SPRITES.h"
@@ -54,13 +57,14 @@ pattern;	//L
 __asm
 
 	ld   C,L
-	
-	call _GetSPRattrVADDR	//Input: A -->plane; Output: HL -->VRAM addr
+
+//Gets the address in video memory of the attributes of a sprite plane
+	call GetSPRattrVADDR	//Input: A-->Sprite plane; Output: HL-->VRAM addr
 	inc  HL
 	inc  HL
 
 	ld   E,C
-	call GetSpritePattern	//Input: E -->Sprite pattern; Output: A -->pattern position
+	call GetSpritePattern	//Input: E-->Sprite pattern; Output: A-->pattern position
 	jp   WriteByteToVRAM
 
 __endasm;
@@ -81,14 +85,17 @@ void SetSpriteColor(char plane, char color) __naked
 plane;	//A
 color;	//L
 __asm
+
 	ld   C,L
-	
-	call _GetSPRattrVADDR	//Input: A -->plane; Output: HL -->VRAM addr
+
+//Gets the address in video memory of the attributes of a sprite plane	
+	call GetSPRattrVADDR	//Input: A -->Sprite plane; Output: HL -->VRAM addr
 
 	inc  HL
 	inc  HL
 	inc  HL
 
+//read the value and check if the EarlyClock bit is set
 	call ReadByteFromVRAM	//Read VRAM
 	bit  7,A
 	ld   A,C
@@ -121,15 +128,20 @@ __asm
 	add  IX,SP
 
 	ld   C,L
-	
-	call _GetSPRattrVADDR	//Input: A -->plane; Output: HL -->VRAM addr
 
-	ld   A,4(ix)	//y
+//Gets the address in video memory of the attributes of a sprite plane
+	call GetSPRattrVADDR	//Input: A-->Sprite plane; Output: HL-->VRAM addr
+
+// Y coordinate value
+	ld   A,4(ix)
 	call WriteByteToVRAM
 
+// X coordinate value
 	ld   A,C		//x
-	call _FastVPOKE
-
+	//call _FastVPOKE
+	inc  HL
+	call WriteByteToVRAM
+	
 	pop  IX
 __endasm;
 }
@@ -159,7 +171,8 @@ __asm
 	ld   E,A
 	add  IY,DE
 
-	call _GetSPRattrVADDR	//Input: A -->plane; Output: HL -->VRAM addr
+//Gets the address in video memory of the attributes of a sprite plane
+	call GetSPRattrVADDR	//Input: A-->Sprite plane; Output: HL-->VRAM addr
 
 	ld   A,C				//state
 	or   A					//0 = off
@@ -203,13 +216,14 @@ state;	//L
 __asm
 
 	LD   C,L	//<--- state
-	
-	call _GetSPRattrVADDR	//Input: A -->plane; Output: HL -->VRAM addr
+
+//Gets the address in video memory of the attributes of a sprite plane
+	call GetSPRattrVADDR	//Input: A-->Sprite plane; Output: HL-->VRAM addr
 
 	inc  HL
 	inc  HL
 	inc  HL					//set the address to the color position
-	push HL
+//	push HL
 
 	call ReadByteFromVRAM	//read a byte from VRAM. Input:HL=VRAMaddr; Output:A
   
@@ -223,7 +237,7 @@ SPRITE_disable:
 	and  #127				//disable EC
  
 SPRITE_EC_WRVRAM: 
-	pop  HL
+//	pop  HL
 	jp   WriteByteToVRAM
 
 __endasm;

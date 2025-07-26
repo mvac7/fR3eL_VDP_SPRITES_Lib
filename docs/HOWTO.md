@@ -2,7 +2,7 @@
 
 | Attention! |
 | :---       |
-| The following document has been written using an English translator.<br/>You can participate in the improvement of this document, transmitting your corrections or suggestions in the issues of this project or the main fR3eL project.<br/>Thanks for understanding. |
+| The following document has been written using an English translation App.<br/>You can participate in the improvement of this document, transmitting your corrections or suggestions in the issues of this project or the main fR3eL project.<br/>Thanks for understanding. |
 
 <br/>
 
@@ -51,9 +51,17 @@ You can add part or all of this code in your application development or include 
 
 ## 2 Requirements
 
+### For Compile:
+
 - [Small Device C Compiler (SDCC) v4.4](http://sdcc.sourceforge.net/)
 - [Hex2bin v2.5](http://hex2bin.sourceforge.net/)
-- fR3eL [VDP_TMS9918A_MSXBIOS](https://github.com/mvac7/SDCC_VDP_TMS9918A_MSXROM_Lib) Library
+
+<br/>
+
+### For include in your projects:
+
+- fR3eL [VDP_TMS9918A](https://github.com/mvac7/fR3eL_VDP_TMS9918A_Lib) Library
+- fR3eL [VDP_TMS9918A_MSXBIOS](https://github.com/mvac7/fR3eL_VDP_TMS9918A_MSXBIOS_Lib) Library
 
 <br/>
 

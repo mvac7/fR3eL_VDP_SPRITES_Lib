@@ -47,28 +47,28 @@
                                      47 ; code
                                      48 ;--------------------------------------------------------
                                      49 	.area _CODE
-                                     50 ;src\VDP_SPRITES.c:49: void SetSpritePattern(char plane, char pattern) __naked
+                                     50 ;src\VDP_SPRITES.c:51: void SetSpritePattern(char plane, char pattern) __naked
                                      51 ;	---------------------------------
                                      52 ; Function SetSpritePattern
                                      53 ; ---------------------------------
       000000                         54 _SetSpritePattern::
-                                     55 ;src\VDP_SPRITES.c:65: __endasm;
+                                     55 ;src\VDP_SPRITES.c:68: __endasm;
       000000 4D               [ 4]   56 	ld	C,L
-      000001 CDr00r00         [17]   57 	call	_GetSPRattrVADDR
+      000001 CDr00r00         [17]   57 	call	GetSPRattrVADDR
       000004 23               [ 6]   58 	inc	HL
       000005 23               [ 6]   59 	inc	HL
       000006 59               [ 4]   60 	ld	E,C
       000007 CDr00r00         [17]   61 	call	GetSpritePattern
       00000A C3r00r00         [10]   62 	jp	WriteByteToVRAM
-                                     63 ;src\VDP_SPRITES.c:66: }
-                                     64 ;src\VDP_SPRITES.c:78: void SetSpriteColor(char plane, char color) __naked
+                                     63 ;src\VDP_SPRITES.c:69: }
+                                     64 ;src\VDP_SPRITES.c:81: void SetSpriteColor(char plane, char color) __naked
                                      65 ;	---------------------------------
                                      66 ; Function SetSpriteColor
                                      67 ; ---------------------------------
       00000D                         68 _SetSpriteColor::
-                                     69 ;src\VDP_SPRITES.c:98: __endasm;
+                                     69 ;src\VDP_SPRITES.c:104: __endasm;
       00000D 4D               [ 4]   70 	ld	C,L
-      00000E CDr00r00         [17]   71 	call	_GetSPRattrVADDR
+      00000E CDr00r00         [17]   71 	call	GetSPRattrVADDR
       000011 23               [ 6]   72 	inc	HL
       000012 23               [ 6]   73 	inc	HL
       000013 23               [ 6]   74 	inc	HL
@@ -78,65 +78,65 @@
       00001A CAr00r00         [10]   78 	jp	Z,WriteByteToVRAM
       00001D F6 80            [ 7]   79 	or	#128
       00001F C3r00r00         [10]   80 	jp	WriteByteToVRAM
-                                     81 ;src\VDP_SPRITES.c:99: }
-                                     82 ;src\VDP_SPRITES.c:112: void SetSpritePosition(char plane, char x, char y)
+                                     81 ;src\VDP_SPRITES.c:105: }
+                                     82 ;src\VDP_SPRITES.c:118: void SetSpritePosition(char plane, char x, char y)
                                      83 ;	---------------------------------
                                      84 ; Function SetSpritePosition
                                      85 ; ---------------------------------
       000022                         86 _SetSpritePosition::
-                                     87 ;src\VDP_SPRITES.c:133: __endasm;
+                                     87 ;src\VDP_SPRITES.c:144: __endasm;
       000022 DD E5            [15]   88 	push	IX
       000024 DD 21 00 00      [14]   89 	ld	IX,#0
       000028 DD 39            [15]   90 	add	IX,SP
       00002A 4D               [ 4]   91 	ld	C,L
-      00002B CDr00r00         [17]   92 	call	_GetSPRattrVADDR
+      00002B CDr00r00         [17]   92 	call	GetSPRattrVADDR
       00002E DD 7E 04         [19]   93 	ld	A,4(ix)
       000031 CDr00r00         [17]   94 	call	WriteByteToVRAM
       000034 79               [ 4]   95 	ld	A,C
-      000035 CDr00r00         [17]   96 	call	_FastVPOKE
-      000038 DD E1            [14]   97 	pop	IX
-                                     98 ;src\VDP_SPRITES.c:134: }
-      00003A E1               [10]   99 	pop	hl
-      00003B 33               [ 6]  100 	inc	sp
-      00003C E9               [ 4]  101 	jp	(hl)
-                                    102 ;src\VDP_SPRITES.c:148: void SetSpriteVisible(char plane, char state)
-                                    103 ;	---------------------------------
-                                    104 ; Function SetSpriteVisible
-                                    105 ; ---------------------------------
-      00003D                        106 _SetSpriteVisible::
-                                    107 ;src\VDP_SPRITES.c:182: __endasm;
-      00003D 4D               [ 4]  108 	ld	C,L
-      00003E FD 21r00r00      [14]  109 	ld	IY,#_SPRITEYBUFF
-      000042 16 00            [ 7]  110 	ld	D,#0
-      000044 5F               [ 4]  111 	ld	E,A
-      000045 FD 19            [15]  112 	add	IY,DE
-      000047 CDr00r00         [17]  113 	call	_GetSPRattrVADDR
-      00004A 79               [ 4]  114 	ld	A,C
-      00004B B7               [ 4]  115 	or	A
-      00004C 28 06            [12]  116 	jr	Z,SPRITE_hide
-      00004E FD 7E 00         [19]  117 	ld	A,(IY)
-      000051 C3r00r00         [10]  118 	jp	WriteByteToVRAM
-      000054                        119 SPRITE_hide:
-      000054 CDr00r00         [17]  120 	call	ReadByteFromVRAM
-      000057 FE D1            [ 7]  121 	cp	#0xD1 ; concealment of the sprite outside the limits of the screen in TMS9918A modes
-      000059 C8               [11]  122 	ret	Z
-      00005A FD 77 00         [19]  123 	ld	(IY),A
-      00005D 3E D1            [ 7]  124 	ld	A,#0xD1 ; concealment of the sprite outside the limits of the screen in TMS9918A modes
-      00005F C3r00r00         [10]  125 	jp	WriteByteToVRAM
-                                    126 ;src\VDP_SPRITES.c:183: }
-      000062 C9               [10]  127 	ret
-                                    128 ;src\VDP_SPRITES.c:198: void SetEarlyClock(char plane, char state) __naked
-                                    129 ;	---------------------------------
-                                    130 ; Function SetEarlyClock
-                                    131 ; ---------------------------------
-      000063                        132 _SetEarlyClock::
-                                    133 ;src\VDP_SPRITES.c:228: __endasm;
-      000063 4D               [ 4]  134 	LD	C,L
-      000064 CDr00r00         [17]  135 	call	_GetSPRattrVADDR
-      000067 23               [ 6]  136 	inc	HL
+      000035 23               [ 6]   96 	inc	HL
+      000036 CDr00r00         [17]   97 	call	WriteByteToVRAM
+      000039 DD E1            [14]   98 	pop	IX
+                                     99 ;src\VDP_SPRITES.c:145: }
+      00003B E1               [10]  100 	pop	hl
+      00003C 33               [ 6]  101 	inc	sp
+      00003D E9               [ 4]  102 	jp	(hl)
+                                    103 ;src\VDP_SPRITES.c:159: void SetSpriteVisible(char plane, char state)
+                                    104 ;	---------------------------------
+                                    105 ; Function SetSpriteVisible
+                                    106 ; ---------------------------------
+      00003E                        107 _SetSpriteVisible::
+                                    108 ;src\VDP_SPRITES.c:194: __endasm;
+      00003E 4D               [ 4]  109 	ld	C,L
+      00003F FD 21r00r00      [14]  110 	ld	IY,#_SPRITEYBUFF
+      000043 16 00            [ 7]  111 	ld	D,#0
+      000045 5F               [ 4]  112 	ld	E,A
+      000046 FD 19            [15]  113 	add	IY,DE
+      000048 CDr00r00         [17]  114 	call	GetSPRattrVADDR
+      00004B 79               [ 4]  115 	ld	A,C
+      00004C B7               [ 4]  116 	or	A
+      00004D 28 06            [12]  117 	jr	Z,SPRITE_hide
+      00004F FD 7E 00         [19]  118 	ld	A,(IY)
+      000052 C3r00r00         [10]  119 	jp	WriteByteToVRAM
+      000055                        120 SPRITE_hide:
+      000055 CDr00r00         [17]  121 	call	ReadByteFromVRAM
+      000058 FE D1            [ 7]  122 	cp	#0xD1 ; concealment of the sprite outside the limits of the screen in TMS9918A modes
+      00005A C8               [11]  123 	ret	Z
+      00005B FD 77 00         [19]  124 	ld	(IY),A
+      00005E 3E D1            [ 7]  125 	ld	A,#0xD1 ; concealment of the sprite outside the limits of the screen in TMS9918A modes
+      000060 C3r00r00         [10]  126 	jp	WriteByteToVRAM
+                                    127 ;src\VDP_SPRITES.c:195: }
+      000063 C9               [10]  128 	ret
+                                    129 ;src\VDP_SPRITES.c:210: void SetEarlyClock(char plane, char state) __naked
+                                    130 ;	---------------------------------
+                                    131 ; Function SetEarlyClock
+                                    132 ; ---------------------------------
+      000064                        133 _SetEarlyClock::
+                                    134 ;src\VDP_SPRITES.c:241: __endasm;
+      000064 4D               [ 4]  135 	LD	C,L
+      000065 CDr00r00         [17]  136 	call	GetSPRattrVADDR
       000068 23               [ 6]  137 	inc	HL
       000069 23               [ 6]  138 	inc	HL
-      00006A E5               [11]  139 	push	HL
+      00006A 23               [ 6]  139 	inc	HL
       00006B CDr00r00         [17]  140 	call	ReadByteFromVRAM
       00006E CB 41            [ 8]  141 	bit	0,C
       000070 28 04            [12]  142 	jr	Z,SPRITE_disable
@@ -145,9 +145,8 @@
       000076                        145 SPRITE_disable:
       000076 E6 7F            [ 7]  146 	and	#127
       000078                        147 SPRITE_EC_WRVRAM:
-      000078 E1               [10]  148 	pop	HL
-      000079 C3r00r00         [10]  149 	jp	WriteByteToVRAM
-                                    150 ;src\VDP_SPRITES.c:229: }
-                                    151 	.area _CODE
-                                    152 	.area _INITIALIZER
-                                    153 	.area _CABS (ABS)
+      000078 C3r00r00         [10]  148 	jp	WriteByteToVRAM
+                                    149 ;src\VDP_SPRITES.c:242: }
+                                    150 	.area _CODE
+                                    151 	.area _INITIALIZER
+                                    152 	.area _CABS (ABS)
