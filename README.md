@@ -46,7 +46,7 @@ Enjoy it!
 
 I'm developing several libraries for managing MSX sprites, considering different runtime environments (ROM, MSX-DOS, or MSX BASIC) and different requirements, such as compactness, optimality, or compatibility with V9938.
  
-Regarding this last point, I found it interesting to be able to create libraries that take advantage of the sprites' features in Graphic 3 mode (Screen 4), since MSX1 games can be created that look much better when run on computers with V9938, without consuming too many resources.
+Regarding this last point, I found it interesting to be able to create libraries that take advantage of the sprites features in Graphic 3 mode (Screen 4), since MSX1 games can be created that look better when run on computers with V9938, without consuming too many resources.
 
 These libraries focus more on hardware access and provide little improvement for video game development.
 It's possible that, with what I've learned from developing these libraries, I could develop a library in the future that simplifies the handling of composite moving figures (multiple sprite planes).
@@ -69,10 +69,19 @@ It's possible that, with what I've learned from developing these libraries, I co
 
 ---
 
-## Requirements for compile
+## Requirements
+
+### Applications for Compile:
 
 - [Small Device C Compiler (SDCC) v4.4](http://sdcc.sourceforge.net/)
 - [Hex2bin v2.5](http://hex2bin.sourceforge.net/)
+
+<br/>
+
+### Libraries for include in your projects:
+
+- fR3eL [VDP_TMS9918A](https://github.com/mvac7/fR3eL_VDP_TMS9918A_Lib) Library
+- fR3eL [VDP_TMS9918A_MSXBIOS](https://github.com/mvac7/fR3eL_VDP_TMS9918A_MSXBIOS_Lib) Library
 
 <br/>
 
@@ -81,7 +90,7 @@ It's possible that, with what I've learned from developing these libraries, I co
 ## Functions
 
 | Name | Declaration | Description |
-| ---  | ---   | ---         |
+| :--- | :---        | :---        |
 | SetSpritePattern  | `SetSpritePattern(char plane, char pattern)` | Assign a pattern to a sprite plane |
 | SetSpriteColor    | `SetSpriteColor(char plane, char color)` | Assign a color to a sprite plane |
 | SetSpritePosition | `SetSpritePosition(char plane, char x, char y)` | Assigns the position coordinates of a sprite plane |
@@ -106,7 +115,7 @@ Example included in the HOWTO document.
 
 [`examples/Example01`](examples/Example01)
 
-![Example screenshot](examples/data/EXAMPLE1_01.png) 
+![Example screenshot](docs/pics/EXAMPLE1_01.png) 
 
 <br/>
 
@@ -116,8 +125,8 @@ Example where the Sprite functions included in the VDP_TMS9918A_MSXBIOS and VDP_
 
 [`examples/Example02_ROMwBIOS`](examples/Example02_ROMwBIOS)
 
-![Example 2 screenshot 1](examples/data/EXAMPLE2_01.png) 
-![Example 2 screenshot 2](examples/data/EXAMPLE2_02.png) 
+![Example 2 screenshot 1](docs/pics/EXAMPLE2_01.png) 
+![Example 2 screenshot 2](docs/pics/EXAMPLE2_02.png) 
 
 <br/>
 

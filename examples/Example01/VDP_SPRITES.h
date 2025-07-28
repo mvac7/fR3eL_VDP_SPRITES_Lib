@@ -12,7 +12,7 @@ SetSpritePattern
 Description: 
 		Assign a pattern to a sprite plane.
 Input:	[char] sprite plane (0-31) 
-		[char] pattern
+		[char] pattern number (0-255 for 8x8 sprites or 0-63 for 16x16 sprites)
 Output:	-
 ============================================================================= */
 void SetSpritePattern(char plane, char pattern);
@@ -36,8 +36,8 @@ SetSpritePosition
 Description: 
 		Assigns the position coordinates of a sprite plane.
 Input:	[char] sprite plane (0-31) 
-		[char] x 
-		[char] y
+		[char] x coordinate
+		[char] y coordinate
 Output:	-
 ============================================================================= */
 void SetSpritePosition(char plane, char x, char y);

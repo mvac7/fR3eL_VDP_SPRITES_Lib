@@ -53,14 +53,14 @@ You can add part or all of this code in your application development or include 
 
 ## 2 Requirements
 
-### For Compile:
+### Applications for Compile:
 
 - [Small Device C Compiler (SDCC) v4.4](http://sdcc.sourceforge.net/)
 - [Hex2bin v2.5](http://hex2bin.sourceforge.net/)
 
 <br/>
 
-### For include in your projects:
+### Libraries for include in your projects:
 
 - fR3eL [VDP_TMS9918A](https://github.com/mvac7/fR3eL_VDP_TMS9918A_Lib) Library
 - fR3eL [VDP_TMS9918A_MSXBIOS](https://github.com/mvac7/fR3eL_VDP_TMS9918A_MSXBIOS_Lib) Library
@@ -78,9 +78,9 @@ You can add part or all of this code in your application development or include 
 <table>
 <tr><td colspan=3><b>SetSpritePattern</b></td></tr>
 <tr><td colspan=3>Assign a pattern to a sprite plane</td></tr>
-<tr><td><b>Function</b></td><td colspan=2>SetSpritePattern(char plane, char pattern)</td></tr>
+<tr><td><b>Function</b></td><td colspan=2>SetSpritePattern(plane, pattern)</td></tr>
 <tr><th rowspan=2>Input</th><td>char</td><td>sprite plane (0-31)</td></tr>
-<tr><td>char</td><td>pattern</td></tr>
+<tr><td>char</td><td>pattern number<br/>0-255 for 8x8 sprites or 0-63 for 16x16 sprites</td></tr>
 <tr><th>Output</th><td colspan=2>---</td></tr>
 </table>
 
@@ -98,7 +98,7 @@ You can add part or all of this code in your application development or include 
 <table>
 <tr><td colspan=3><b>SetSpriteColor</b></td></tr>
 <tr><td colspan=3>Assign a color to a sprite plane</td></tr>
-<tr><td><b>Function</b></td><td colspan=2>SetSpriteColor(char plane, char color)</td></tr>
+<tr><td><b>Function</b></td><td colspan=2>SetSpriteColor(plane, color)</td></tr>
 <tr><th rowspan=2>Input</th><td>char</td><td>sprite plane (0-31)</td></tr>
 <tr><td>char</td><td>color (0-15)</td></tr>
 <tr><th>Output</th><td colspan=2>---</td></tr>
@@ -118,10 +118,10 @@ You can add part or all of this code in your application development or include 
 <table>
 <tr><td colspan=3><b>SetSpritePosition</b></td></tr>
 <tr><td colspan=3>Assigns the position coordinates of a sprite plane</td></tr>
-<tr><td><b>Function</b></td><td colspan=2>SetSpritePosition(char plane, char x, char y)</td></tr>
+<tr><td><b>Function</b></td><td colspan=2>SetSpritePosition(plane, x, y)</td></tr>
 <tr><th rowspan=3>Input</th><td>char</td><td>sprite plane (0-31)</td></tr>
-<tr><td>char</td><td>x</td></tr>
-<tr><td>char</td><td>y</td></tr>
+<tr><td>char</td><td>x coordinate</td></tr>
+<tr><td>char</td><td>y coordinate</td></tr>
 <tr><th>Output</th><td colspan=2>---</td></tr>
 </table>
 
@@ -139,7 +139,7 @@ You can add part or all of this code in your application development or include 
 <table>
 <tr><td colspan=3><b>SetSpriteVisible</b></td></tr>
 <tr><td colspan=3>Hides or shows a sprite plane</td></tr>
-<tr><td><b>Function</b></td><td colspan=2>SetSpriteVisible(char plane, char state)</td></tr>
+<tr><td><b>Function</b></td><td colspan=2>SetSpriteVisible(plane, state)</td></tr>
 <tr><th rowspan=2>Input</th><td>char</td><td>sprite plane (0-31)</td></tr>
 <tr><td>char or boolean/switcher</td><td>visible state:<br/>0/false/OFF = hidden; 1/true/ON = visible</td></tr>
 <tr><th>Output</th><td colspan=2>---</td></tr>
@@ -165,7 +165,7 @@ You can add part or all of this code in your application development or include 
 <table>
 <tr><td colspan=3><b>SetEarlyClock</b></td></tr>
 <tr><td colspan=3>Enable or Disable the EarlyClock of a sprite plane.<br/>Move 32 points to the left the X position of the Sprite.</td></tr>
-<tr><td><b>Function</b></td><td colspan=2>SetEarlyClock(char plane, char state)</td></tr>
+<tr><td><b>Function</b></td><td colspan=2>SetEarlyClock(plane, state)</td></tr>
 <tr><th rowspan=2>Input</th><td>char</td><td>sprite plane (0-31)</td></tr>
 <tr><td>char or boolean/switcher</td><td>EC state:<br/>0/false/OFF = disable<br/>1/true/ON = enable</td></tr>
 <tr><th>Output</th><td colspan=2>---</td></tr>
