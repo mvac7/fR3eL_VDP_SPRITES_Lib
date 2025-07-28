@@ -12,7 +12,7 @@
 C Library functions for directly accessing sprite attributes from the 
 TMS9918A/28A/29A video processor.
 
-This library requires one of the VDP access libraries TMS9918A from 
+This library requires one of the VDP TMS9918A access libraries from 
 the fR3eL project:
 - https://github.com/mvac7/fR3eL_VDP_TMS9918A_Lib
 - https://github.com/mvac7/fR3eL_VDP_TMS9918A_MSXBIOS_Lib

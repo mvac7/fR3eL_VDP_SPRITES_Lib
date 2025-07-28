@@ -2,7 +2,7 @@
 Example01.c
 Version: 1.0 (14/06/2025)
 Architecture: MSX
-Format: MSX ROM 8k
+Format: 16K ROM (BIOS+ROM+RAM+RAM)
 Programming language: C and Z80 assembler
 Compiler: SDCC 4.4 or newer
 

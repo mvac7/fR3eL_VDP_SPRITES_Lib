@@ -491,7 +491,6 @@ void setFont(void)
 
 
 
-
 // TEST SPRITES  ###############################################################
 void testSPRITES(void)
 {
@@ -554,10 +553,10 @@ void testSPRITES(void)
 	WAIT(WAIT_TIME);
 
 	VLocateNL();
-	VPRINT("Modify color with EC enabled"); 
+	VPRINT("Modify color with EC enabled");
 	VLocateNL();
-	VPRINT("SetSpriteColor(7,7)"); 
-	SetSpriteColor(7, 7);
+	VPRINT("SetSpriteColor(7,3)"); 
+	SetSpriteColor(7,3);
 	WAIT(WAIT_TIME);
 
 	VLocateNL();

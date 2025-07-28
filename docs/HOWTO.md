@@ -26,19 +26,21 @@
 
 ## 1 Description
 
-Open Source library with functions to directly access to sprites of the TMS9918A.
+C Library functions for directly accessing sprite attributes from the TMS9918A/28A/29A video processor.
 
-Provides a set of specific functions to handle Sprites such as positioning, color, pattern assignment, visibility and EarlyClock.
+Provides a set of sprite-specific functions, including positioning, color, pattern mapping, visibility, and set EarlyClock (horizontal shift left 32 pixels.).
 
-It is complemented with the [VDP_TMS9918A_MSXBIOS Library](https://github.com/mvac7/SDCC_VDP_TMS9918A_MSXROM_Lib), necessary for the initialization of the screen and sprites mode.
+This library need and complemented by one of the VDP TMS9918A access libraries from the fR3eL project:
+- for all environments [VDP_TMS9918A](https://github.com/mvac7/SDCC_TMS9918A_Lib) Library. (Fast but takes up more space).
+- for only ROM and MSX BASIC (Use BIOS) [VDP_TMS9918A_MSXBIOS](https://github.com/mvac7/fR3eL_VDP_TMS9918A_MSXBIOS_Lib) Library. (Small but slow).
 
 You can combine the use of this library's functions with the PUTSPRITE function included in the VDP_TMS9918A library, which allows for a more agile way of initializing a Sprite.
 
-This library is designed for use only with the VDP TMS9918A.
+This library is designed to be used only with TMS9918A VDP Sprites.
 It can be used in Graphic 3 mode (Screen 4) on the V9938 or higher, but will not display correctly, as the color mapping and EarlyClock functions will not work because they must write to a separate color table. 
 This functionality has not been added to this library to keep its size small.
 
-It uses MSX BIOS functions, so it is designed to develop applications in ROM or MSXBASIC environments, using the Small Device C Compiler [(SDCC)](http://sdcc.sourceforge.net/) cross compiler.
+You can use this library to develop applications for ROM, MSXBASIC or MSX-DOS environments, using the Small Device C Compiler [(SDCC)](http://sdcc.sourceforge.net/) cross compiler.
 
 These libraries are part of the [MSX fR3eL Project](https://github.com/mvac7/SDCC_MSX_fR3eL).
 
@@ -230,14 +232,14 @@ This example performs the following actions:
 Example01.c
 Version: 1.0 (14/06/2025)
 Architecture: MSX
-Format: MSX ROM 8k
+Format: 16K ROM (BIOS+ROM+RAM+RAM)
 Programming language: C and Z80 assembler
 Compiler: SDCC 4.4 or newer
 
 Description:
 Simple example of the VDP_SPRITE_MSXBIOS Library (fR3eL Project)
 ============================================================================= */
-#include "VDP_TMS9918A_MSXBIOS.h"
+#include "VDP_TMS9918A.h"
 #include "VDP_SPRITES.h"
 
 #define  HALT __asm halt __endasm   //wait for the next interrupt

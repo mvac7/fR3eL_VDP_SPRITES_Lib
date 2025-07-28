@@ -15,9 +15,11 @@
 
 C Library functions for directly accessing sprite attributes from the TMS9918A/28A/29A video processor.
 
-Provides a set of sprite-specific functions, including positioning, color, pattern mapping, visibility, and EarlyClock.
+Provides a set of sprite-specific functions, including positioning, color, pattern mapping, visibility, and set EarlyClock (horizontal shift left 32 pixels.).
 
-It is complemented with the [VDP_TMS9918A_MSXBIOS](https://github.com/mvac7/SDCC_VDP_TMS9918A_MSXROM_Lib) Library, necessary for the initialization of the screen and sprites mode.
+This library need and complemented by one of the VDP TMS9918A access libraries from the fR3eL project:
+- for all environments [VDP_TMS9918A](https://github.com/mvac7/SDCC_TMS9918A_Lib) Library. (Fast but takes up more space).
+- for only ROM and MSX BASIC (Use BIOS) [VDP_TMS9918A_MSXBIOS](https://github.com/mvac7/fR3eL_VDP_TMS9918A_MSXBIOS_Lib) Library. (Small but slow).
 
 You can combine the use of this library's functions with the PUTSPRITE function included in the VDP_TMS9918A library, which allows for a more agile way of initializing a Sprite.
 
@@ -25,7 +27,7 @@ This library is designed to be used only with TMS9918A VDP Sprites.
 It can be used in Graphic 3 mode (Screen 4) on the V9938 or higher, but will not display correctly, as the color mapping and EarlyClock functions will not work because they must write to a separate color table. 
 This functionality has not been added to this library to keep its size small.
 
-It uses MSX BIOS functions, so it is designed to develop applications in ROM or MSXBASIC environments, using the Small Device C Compiler [(SDCC)](http://sdcc.sourceforge.net/) cross compiler.
+You can use this library to develop applications for ROM, MSXBASIC or MSX-DOS environments, using the Small Device C Compiler [(SDCC)](http://sdcc.sourceforge.net/) cross compiler.
 
 You can access the documentation here with [`How to use the library`](docs/HOWTO.md).
 
@@ -55,16 +57,13 @@ It's possible that, with what I've learned from developing these libraries, I co
 
 ## History of versions (dd/mm/yyyyy):
 - v1.2 (11/07/2025) 
-	- Update to SDCC (4.1.12) Z80 calling conventions
-	- Move PUTSPRITE function to VDP_TMS9918A library
-	- Merge UnsetEarlyClock functionality into SetEarlyClock
-	- Maintain the EarlyClock value in the SetSpriteColor function
-	- Compatibility with the VDP_TMS9918A_MSXBIOS library
+	- Update to SDCC (4.1.12) Z80 calling conventions.
+	- Move PUTSPRITE function to VDP_TMS9918A library.
+	- Merge UnsetEarlyClock functionality into SetEarlyClock.
+	- Maintain the EarlyClock value in the SetSpriteColor function.
+	- Compatibility with the VDP_TMS9918A_MSXBIOS library.
 - v1.1 ???
 - v1.0 (04/05/2019) First Version
-
-
-1.0 (04/05/2019)
 
 <br/>
 
@@ -113,8 +112,19 @@ Example included in the HOWTO document.
 
 ### Example 2 (ROM)
 
-Example where the Sprite functions included in the VDP_TMS9918A and VDP_SPRITES libraries are tested.
+Example where the Sprite functions included in the VDP_TMS9918A_MSXBIOS and VDP_SPRITES libraries are tested.
 
-[`examples/Example02`](examples/Example02)
+[`examples/Example02_ROMwBIOS`](examples/Example02_ROMwBIOS)
 
-![Example screenshot](examples/data/EXAMPLE2_02.png) 
+![Example 2 screenshot 1](examples/data/EXAMPLE2_01.png) 
+![Example 2 screenshot 2](examples/data/EXAMPLE2_02.png) 
+
+<br/>
+
+### Example 3 (MSX-DOS)
+
+Adaptation of Example 2 for the MSX-DOS environment.
+
+Test the Sprite functions included in the VDP_TMS9918A and VDP_SPRITES libraries.
+
+[`examples/Example03_MSXDOS`](examples/Example03_MSXDOS)
