@@ -1,0 +1,10 @@
+<msxdevtools app="ByteniZ3R" version="0.9.29.0-beta">
+  <ByteniZ3R>
+    <info name="VDP_SPRITES" group="303bcn" version="1" author="mvac7" startDate="638855424000000000" lastUpdate="638855424000000000">
+      <description>
+      </description>
+    </info>
+    <waveform type="0" HasSign="False" size="256" minValue="16" maxValue="144" phase="0" freq="1" />
+    <OutputConfig LanguageCode="1" NumeralSystem="7" LineSize="4" AsmDataByteCommand="DB" BASICinitLine="2000" BASIClineInterval="1" BASICremoveZeros="False" FieldName="DATA" />
+  </ByteniZ3R>
+</msxdevtools>

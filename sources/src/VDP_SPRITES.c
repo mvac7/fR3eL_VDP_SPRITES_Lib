@@ -1,32 +1,36 @@
 /* =============================================================================   
-  VDP SPRITE MSX SDCC Library (fR3eL Project)
-  Version: 1.0 (04/05/2019)
-  Author: mvac7 [mvac7303b@gmail.com]
-  Architecture: MSX
-  Format: C Object (SDCC .rel)
-  Programming language: C and Z80 assembler
+# VDP_SPRITE MSX SDCC Library (fR3eL Project)
 
-  Description:
-    Open Source library with functions to directly access to sprites of the 
-    TMS9918A.
-    
-    It uses the functions from the MSX BIOS, so it is designed to create 
-    applications in ROM format.
-      
-    It's complemented with the VDP TMS9918A MSX SDCC Library (fR3eL Project).
-     https://github.com/mvac7/SDCC_TMS9918A_Lib
-    
-    For SDCC 3.9 or higher.
-    
-  History of versions:
-    v1.1 (2/2/2017)                   
+- Version: 1.2 (11/07/2025)
+- Author: mvac7/303bcn
+- Architecture: MSX
+- Format: SDCC Relocatable object file (.rel)
+- Programming language: C and Z80 assembler
+- Compiler: SDCC 4.4 or newer 
+
+## Description:
+C Library functions for directly accessing sprite attributes from the 
+TMS9918A/28A/29A video processor.
+
+This library requires one of the VDP TMS9918A access libraries from 
+the fR3eL project:
+- https://github.com/mvac7/fR3eL_VDP_TMS9918A_Lib
+- https://github.com/mvac7/fR3eL_VDP_TMS9918A_MSXBIOS_Lib
+
+
+## History of versions (dd/mm/yyyyy):
+- v1.2 (11/07/2025) 
+	- Update to SDCC (4.1.12) Z80 calling conventions
+	- Move PUTSPRITE function to VDP_TMS9918A library
+	- Merge UnsetEarlyClock functionality into SetEarlyClock
+	- Maintain the EarlyClock value in the SetSpriteColor function
+	- Compatibility with the VDP_TMS9918A_MSXBIOS library
+- v1.1 ???
+- v1.0 (04/05/2019) First Version
 ============================================================================= */ 
 
 #include "../include/VDP_SPRITES.h"
-
 #include "../include/msxSystemVariables.h"
-//#include "../include/msxBIOS.h"
-
 
 
 
@@ -38,148 +42,30 @@ char SPRITEYBUFF[32];
 
 
 
-
-
- 
-
-
-
 /* =============================================================================
- PUTSPRITE
- Description: Displays the sprite pattern.
- Input:       [char] sprite plane (0-31) 
-              [char] x 
-              [char] y
-              [char] color (0-15)
-              [char] pattern
- Output:      -
+SetSpritePattern
+Description: 
+		Assign a pattern to a sprite plane.
+Input:	[char] sprite plane (0-31) 
+		[char] pattern number (0-255 for 8x8 sprites or 0-63 for 16x16 sprites)
+Output:	-
 ============================================================================= */
-void PUTSPRITE(char plane, char x, char y, char color, char pattern)
+void SetSpritePattern(char plane, char pattern) __naked
 {
-plane;x;y;color;pattern;
+plane;		//A
+pattern;	//L
 __asm
-  push IX
-  ld   IX,#0
-  add  IX,SP
 
-  ld   A,4(IX) ;num sprite plane
-  call GetSPRattrVADDR
-  
-  ld   A,6(IX) ;y
-  call WriteByte2VRAM ;WRTVRM
-  
-  inc  HL  
-  ld   A,5(IX) ;x
-  call WriteByte2VRAM ;WRTVRM
-  
-  inc  HL  
-  ld   E,8(IX)
-  call setSpritePattern  ;pattern
-  
-  inc  HL
-  ld   A,7(IX) ;color
-  call WriteByte2VRAM ;WRTVRM
-  
-  pop  IX
-  ret
-  
+	ld   C,L
 
-; ------------------------------------------------------------------------------
-; Input    : A  - Sprite number
-; Output   : HL - For the address   
-; same as MSX BIOS CALATR:
-GetSPRattrVADDR:
-  SLA  A    ;*2
-  SLA  A    ;*2
-  ld   E,A
-  ld   D,#0
-  ld   HL,#0x1B00 // base 8/13/18 sprite attribute table
-  add  HL,DE
- 
-  ;ret
-__endasm;
-}
+//Gets the address in video memory of the attributes of a sprite plane
+	call GetSPRattrVADDR	//Input: A-->Sprite plane; Output: HL-->VRAM addr
+	inc  HL
+	inc  HL
 
-
-
-/* =============================================================================
- SetSpritePattern
- Description: Assign a pattern to a sprite plane.
- Input:       [char] sprite plane (0-31) 
-              [char] pattern
- Output:      -
-============================================================================= */
-void SetSpritePattern(char plane, char pattern)
-{
-plane;pattern; 
-__asm
-  push IX
-  ld   IX,#0
-  add  IX,SP
-  
-  ld   A,4(ix) ;num sprite plane  
-  call GetSPRattrVADDR  ;get vram address
-  inc  HL
-  inc  HL
-  
-  ld   E,5(ix) ;number of pattern to assign  
-  call setSpritePattern
-  
-  pop  IX
-  ret
-  
-
-
-; set sprite pattern number
-; Multiply * 4 when its a 16x16 sprite.
-; E - Sprite Number  
-setSpritePattern:
-
-  ld   A,(#RG0SAV+1) ; --- read vdp(1) from mem
-
-  bit  1,A        ;Sprite size; 1=16x16
-  jr   Z,WRTPAT
-
-  ;if spritesize = 16x16 then A*4
-  SLA  E
-  SLA  E ;multiplica x4  
-
-WRTPAT:
-  LD   A,E
-  call WriteByte2VRAM ;WRTVRM
-   
-  ;ret  
-__endasm;
-}
-
-
-
-/* =============================================================================
- SetSpriteColor
- Description: Assign a color to a sprite plane.
- Input:       [char] sprite plane (0-31) 
-              [char] color (0-15)
- Output:      -
-============================================================================= */
-void SetSpriteColor(char plane, char color)
-{
-plane;color;
-__asm
-  push IX
-  ld   IX,#0
-  add  IX,SP
-
-  ld   A,4(IX) ;num sprite plane
-  call GetSPRattrVADDR
-
-  inc  HL
-  inc  HL
-  inc  HL
-  
-  ld   A,5(IX) ;color
-  call WriteByte2VRAM ;WRTVRM
-  
-  pop  IX
+	ld   E,C
+	call GetSpritePattern	//Input: E-->Sprite pattern; Output: A-->pattern position
+	jp   WriteByteToVRAM
 
 __endasm;
 }
@@ -187,151 +73,172 @@ __endasm;
 
 
 /* =============================================================================
- SetSpritePosition
- Description: Assigns the position coordinates of a sprite plane.
- Input:       [char] sprite plane (0-31) 
-              [char] x 
-              [char] y
- Output:      -
+SetSpriteColor
+Description: 
+		Assign a color to a sprite plane.
+Input:	[char] sprite plane (0-31) 
+		[char] color (0-15)
+Output:	-
+============================================================================= */
+void SetSpriteColor(char plane, char color) __naked
+{
+plane;	//A
+color;	//L
+__asm
+
+	ld   C,L
+
+//Gets the address in video memory of the attributes of a sprite plane	
+	call GetSPRattrVADDR	//Input: A -->Sprite plane; Output: HL -->VRAM addr
+
+	inc  HL
+	inc  HL
+	inc  HL
+
+//read the value and check if the EarlyClock bit is set
+	call ReadByteFromVRAM	//Read VRAM
+	bit  7,A
+	ld   A,C
+	jp   Z,WriteByteToVRAM	//write to VRAM (OAM) without EarlyClock
+	or   #128				//turn EarlyClock bit ON
+	jp   WriteByteToVRAM	//write to VRAM (OAM)
+
+__endasm;
+}
+
+
+
+/* =============================================================================
+SetSpritePosition
+Description: 
+		Assigns the position coordinates of a sprite plane.
+Input:	[char] sprite plane (0-31) 
+		[char] x coordinate 
+		[char] y coordinate
+Output:	-
 ============================================================================= */
 void SetSpritePosition(char plane, char x, char y)
 {
-plane;x;y;
+plane;	//A
+x;		//L
+y;		//Stack
 __asm
-  push IX
-  ld   IX,#0
-  add  IX,SP
-  
-  ld   A,4(ix) ;num sprite
-  call GetSPRattrVADDR
-  
-  ld   A,6(ix)   ;y
-  call WriteByte2VRAM ;WRTVRM
-  
-  inc  HL
-  ld   A,5(ix)   ;x
-  call WriteByte2VRAM ;WRTVRM
-  
-  pop  IX
+	push IX
+	ld   IX,#0
+	add  IX,SP
+
+	ld   C,L
+
+//Gets the address in video memory of the attributes of a sprite plane
+	call GetSPRattrVADDR	//Input: A-->Sprite plane; Output: HL-->VRAM addr
+
+// Y coordinate value
+	ld   A,4(ix)	//y
+	call WriteByteToVRAM
+
+// X coordinate value
+	ld   A,C		//x
+	//call _FastVPOKE
+	inc  HL
+	call WriteByteToVRAM
+	
+	pop  IX
 __endasm;
 }
 
 
 
 /* =============================================================================
- SetSpriteVisible
- Description: Hides or shows a sprite plane.
- Input:       [char] sprite plane (0-31) 
-              [boolean] visible state
- Output:      -
+SetSpriteVisible
+Description: 
+		Hides or shows a sprite plane.
+Input:	[char] sprite plane (0-31) 
+		[char] or [boolean]/[switcher] visible state: 
+														0/false/OFF = hidden
+														1/true/ON = visible
+Output:	-
 ============================================================================= */
-void SetSpriteVisible(char plane, boolean state)
+void SetSpriteVisible(char plane, char state)
 {
-plane;state;
+plane;	//A
+state;	//L
 __asm
-  push IX
-  ld   IX,#0
-  add  IX,SP
-        
-  ld   A,4(ix) ;num sprite
-  
-  ld   IY,#_SPRITEYBUFF
-  ld   D,#0
-  ld   E,A
-  ADD  IY,DE
-  
-  call GetSPRattrVADDR
 
-  ld   A,5(ix) ;state
-  or   A ;0 = off
-  jr   Z,SPRITEOFF
-  
-;sprite ON
-  ld   A,(IY)
-  
-  call WriteByte2VRAM ;WRTVRM
-    
-  pop  IX
-  ret
+	ld   C,L        
+
+	ld   IY,#_SPRITEYBUFF
+	ld   D,#0
+	ld   E,A
+	add  IY,DE
+
+//Gets the address in video memory of the attributes of a sprite plane
+	call GetSPRattrVADDR	//Input: A-->Sprite plane; Output: HL-->VRAM addr
+
+	ld   A,C				//state
+	or   A					//0 = off
+	jr   Z,SPRITE_hide
+
+//makes the sprite visible
+	ld   A,(IY)				//restore Y value  
+	jp   WriteByteToVRAM	//write to VRAM (OAM)
 
 
-;sprite OFF
-SPRITEOFF:
-  call ReadByteFromVRAM   ;RDVRM
-  cp   #YHIDDEN
-  jr   Z,ENDOFF ;if not visible then Dont overwrite. 
+//hide the sprite
+SPRITE_hide:
+	call ReadByteFromVRAM	//read a byte from VRAM. Input:HL=VRAMaddr; Output:A
+	cp   #YHIDDEN
+	ret  Z					//if sprite hidden then Dont overwrite 
+
+	ld   (IY),A				//save the Y coordinate
+	ld   A,#YHIDDEN
+	jp   WriteByteToVRAM	//write the hiding position
   
-  ld   (IY),A
-  ld   A,#YHIDDEN
-  call WriteByte2VRAM ;WRTVRM
-  
-ENDOFF:
-  pop  IX
 __endasm;
 }
 
 
 
 /* =============================================================================
- SetEarlyClock
- Description: Apply the Early Clock of a sprite plane. Move 32 points to the 
-              left the X position of the sprite.
- Input:       [char] sprite plane (0-31) 
- Output:      -
+SetEarlyClock
+Description: 
+		Enable or Disable Early Clock of a sprite plane. 
+		EC: Move 32 points to the left the X position of the sprite.
+Input:	[char] sprite plane (0-31)
+		[char] or [boolean]/[switcher] EC state: 
+									0/false/OFF = disable
+									1/true/ON = enable
+Output:	-
 ============================================================================= */
-void SetEarlyClock(char plane)
+void SetEarlyClock(char plane, char state) __naked
 {
-plane;
+plane;	//A
+state;	//L
 __asm
-  push IX
-  ld   IX,#0
-  add  IX,SP
-  
-  ld   A,4(IX) 
-  call GetSPRattrVADDR
-  
-  inc  HL
-  inc  HL
-  inc  HL
-  push HL
-  call ReadByteFromVRAM   ;RDVRM
-  OR   #128
-  pop  HL
-  call WriteByte2VRAM ;WRTVRM VPOKE
-  
 
-  pop  IX
-__endasm;
-}
+	LD   C,L	//<--- state
 
+//Gets the address in video memory of the attributes of a sprite plane
+	call GetSPRattrVADDR	//Input: A-->Sprite plane; Output: HL-->VRAM addr
 
+	inc  HL
+	inc  HL
+	inc  HL					//set the address to the color position
+//	push HL
 
-/* =============================================================================
- UnsetEarlyClock
- Description: Disables the Early Clock. Restore the position of a sprite plane.
- Input:       [char] sprite plane (0-31)
- Output:      -
-============================================================================= */
-void UnsetEarlyClock(char plane)
-{
-plane;
-__asm
-  push IX
-  ld   IX,#0
-  add  IX,SP
-
-  ld   A,4(IX) 
-  call GetSPRattrVADDR
+	call ReadByteFromVRAM	//read a byte from VRAM. Input:HL=VRAMaddr; Output:A
   
-  inc  HL
-  inc  HL
-  inc  HL
-  call ReadByteFromVRAM   ;RDVRM
-  and  #127
-  call WriteByte2VRAM ;WRTVRM
-  
-  pop  IX
-  ;ret
-  
+	bit  0,C				//IF state enable?
+	jr   Z,SPRITE_disable
+	
+	or   #128				//enable EC
+	jr   SPRITE_EC_WRVRAM
+
+SPRITE_disable:
+	and  #127				//disable EC
+ 
+SPRITE_EC_WRVRAM: 
+//	pop  HL
+	jp   WriteByteToVRAM
+
 __endasm;
 }

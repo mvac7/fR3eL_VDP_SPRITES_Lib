@@ -1,0 +1,336 @@
+<msxOpenDocument app="tMSgfX devtool" version="0.9.19.0">
+  <info ProjectName="VDP_SPRITES" Name="Examples" Version="1" Author="mvac7" Group="303bcn" StartDate="638854560000000000" LastUpdate="638854560000000000">
+    <Description>
+    </Description>
+  </info>
+  <screens name="">
+    <screen name="screen" ScreenMode="2" SpriteSize="2" SpriteZoom="0" paletteID="0" ForegroundColor="15" BackgroundColor="4" MapID="0" OneBANK="True" TilesetA_ID="27795186" TilesetB_ID="0" TilesetC_ID="0" SpritesetID="0" OAMID="0" />
+  </screens>
+  <gfx>
+    <tileset id="27795186" name="default_Tileset" mode="2" foregroundColor="15" backgroundColor="4">
+      <tile index="0" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="1" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="2" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="3" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="4" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="5" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="6" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="7" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="8" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="9" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="10" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="11" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="12" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="13" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="14" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="15" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="16" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="17" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="18" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="19" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="20" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="21" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="22" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="23" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="24" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="25" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="26" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="27" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="28" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="29" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="30" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="31" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="32" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="33" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="34" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="35" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="36" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="37" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="38" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="39" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="40" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="41" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="42" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="43" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="44" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="45" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="46" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="47" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="48" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="49" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="50" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="51" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="52" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="53" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="54" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="55" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="56" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="57" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="58" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="59" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="60" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="61" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="62" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="63" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="64" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="65" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="66" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="67" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="68" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="69" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="70" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="71" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="72" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="73" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="74" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="75" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="76" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="77" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="78" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="79" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="80" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="81" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="82" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="83" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="84" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="85" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="86" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="87" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="88" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="89" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="90" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="91" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="92" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="93" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="94" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="95" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="96" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="97" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="98" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="99" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="100" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="101" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="102" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="103" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="104" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="105" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="106" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="107" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="108" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="109" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="110" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="111" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="112" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="113" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="114" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="115" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="116" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="117" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="118" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="119" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="120" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="121" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="122" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="123" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="124" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="125" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="126" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="127" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="128" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="129" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="130" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="131" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="132" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="133" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="134" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="135" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="136" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="137" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="138" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="139" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="140" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="141" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="142" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="143" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="144" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="145" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="146" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="147" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="148" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="149" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="150" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="151" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="152" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="153" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="154" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="155" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="156" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="157" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="158" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="159" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="160" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="161" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="162" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="163" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="164" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="165" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="166" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="167" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="168" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="169" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="170" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="171" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="172" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="173" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="174" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="175" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="176" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="177" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="178" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="179" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="180" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="181" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="182" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="183" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="184" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="185" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="186" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="187" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="188" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="189" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="190" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="191" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="192" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="193" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="194" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="195" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="196" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="197" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="198" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="199" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="200" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="201" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="202" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="203" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="204" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="205" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="206" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="207" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="208" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="209" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="210" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="211" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="212" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="213" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="214" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="215" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="216" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="217" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="218" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="219" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="220" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="221" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="222" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="223" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="224" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="225" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="226" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="227" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="228" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="229" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="230" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="231" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="232" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="233" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="234" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="235" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="236" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="237" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="238" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="239" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="240" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="241" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="242" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="243" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="244" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="245" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="246" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="247" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="248" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="249" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="250" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="251" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="252" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="253" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="254" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+      <tile index="255" gfxData="0000000000000000" colorData="F4F4F4F4F4F4F4F4" />
+    </tileset>
+  </gfx>
+  <maps>
+    <map id="48134224" name="New map" maptype="0" tiletype="0" width="32" height="24" paletteID="0" tileset="27795186">
+      <line index="0">000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F</line>
+      <line index="1">202122232425262728292A2B2C2D2E2F303132333435363738393A3B3C3D3E3F</line>
+      <line index="2">404142434445464748494A4B4C4D4E4F505152535455565758595A5B5C5D5E5F</line>
+      <line index="3">606162636465666768696A6B6C6D6E6F707172737475767778797A7B7C7D7E7F</line>
+      <line index="4">808182838485868788898A8B8C8D8E8F909192939495969798999A9B9C9D9E9F</line>
+      <line index="5">A0A1A2A3A4A5A6A7A8A9AAABACADAEAFB0B1B2B3B4B5B6B7B8B9BABBBCBDBEBF</line>
+      <line index="6">C0C1C2C3C4C5C6C7C8C9CACBCCCDCECFD0D1D2D3D4D5D6D7D8D9DADBDCDDDEDF</line>
+      <line index="7">E0E1E2E3E4E5E6E7E8E9EAEBECEDEEEFF0F1F2F3F4F5F6F7F8F9FAFBFCFDFEFF</line>
+      <line index="8">000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F</line>
+      <line index="9">202122232425262728292A2B2C2D2E2F303132333435363738393A3B3C3D3E3F</line>
+      <line index="10">404142434445464748494A4B4C4D4E4F505152535455565758595A5B5C5D5E5F</line>
+      <line index="11">606162636465666768696A6B6C6D6E6F707172737475767778797A7B7C7D7E7F</line>
+      <line index="12">808182838485868788898A8B8C8D8E8F909192939495969798999A9B9C9D9E9F</line>
+      <line index="13">A0A1A2A3A4A5A6A7A8A9AAABACADAEAFB0B1B2B3B4B5B6B7B8B9BABBBCBDBEBF</line>
+      <line index="14">C0C1C2C3C4C5C6C7C8C9CACBCCCDCECFD0D1D2D3D4D5D6D7D8D9DADBDCDDDEDF</line>
+      <line index="15">E0E1E2E3E4E5E6E7E8E9EAEBECEDEEEFF0F1F2F3F4F5F6F7F8F9FAFBFCFDFEFF</line>
+      <line index="16">000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F</line>
+      <line index="17">202122232425262728292A2B2C2D2E2F303132333435363738393A3B3C3D3E3F</line>
+      <line index="18">404142434445464748494A4B4C4D4E4F505152535455565758595A5B5C5D5E5F</line>
+      <line index="19">606162636465666768696A6B6C6D6E6F707172737475767778797A7B7C7D7E7F</line>
+      <line index="20">808182838485868788898A8B8C8D8E8F909192939495969798999A9B9C9D9E9F</line>
+      <line index="21">A0A1A2A3A4A5A6A7A8A9AAABACADAEAFB0B1B2B3B4B5B6B7B8B9BABBBCBDBEBF</line>
+      <line index="22">C0C1C2C3C4C5C6C7C8C9CACBCCCDCECFD0D1D2D3D4D5D6D7D8D9DADBDCDDDEDF</line>
+      <line index="23">E0E1E2E3E4E5E6E7E8E9EAEBECEDEEEFF0F1F2F3F4F5F6F7F8F9FAFBFCFDFEFF</line>
+    </map>
+  </maps>
+  <sprites>
+    <SourceCodeFormat LanguageCode="1" NumeralSystem="7" LineSizeIndex="3" CompressType="0" DataLabel="TestTMS_sprites_SSET">
+      <Assembler DataByteCommand="db" DataWordCommand="dw" />
+      <C UnsignedByteTypeDef="const char" SignedByteTypeDef="const signed char" />
+      <BASIC commentInstruction="REM" dataInstruction="DATA" FirstLineNumber="1000" Increment="10" remove0="False" />
+    </SourceCodeFormat>
+    <spriteset id="11026812" name="TestTMS fruits SSET" size="2" mode="1" paletteID="0">
+      <sprite index="0" name="" InkColor="15" BGcolor="0">
+        <gfxData>3C42A581A599423C3C7EDBFFFFDB663C6CFEFEFE7C38100010387CFE7C381000</gfxData>
+      </sprite>
+      <sprite index="1" name="" InkColor="15" BGcolor="0">
+        <gfxData>103854FE5410380010387CFEFE1038000000001818000000FFFFFFE7E7FFFFFF</gfxData>
+      </sprite>
+      <sprite index="2" name="" InkColor="12" BGcolor="0">
+        <gfxData>0F1F3D3F7B7CBFBF9FEF6F1F0F05051DC0E060C04080808486DEC0C0800000C0</gfxData>
+      </sprite>
+      <sprite index="3" name="" InkColor="3" BGcolor="0">
+        <gfxData>03074FCF4D4F2C1E3F3F3F3F1F020206C0E2E6E2A2F4387CFEFEFEFCF8404060</gfxData>
+      </sprite>
+      <sprite index="4" name="" InkColor="10" BGcolor="0">
+        <gfxData>05071A2E6F5B5C5B5F586F2D1602020640C0B8D4D46AEA6AEA6AD4D4F8404060</gfxData>
+      </sprite>
+      <sprite index="5" name="" InkColor="15" BGcolor="0">
+        <gfxData>051E3F6F576E3F00070507040603020660F8F4EA76BE7C00E060E02060C04060</gfxData>
+      </sprite>
+      <sprite index="6" name="" InkColor="6" BGcolor="0">
+        <gfxData>071F3F3F7F717F7F7F7E3E3F1F070206E0F8FCFCFE8EFEFEFE7E7CFCF8E04060</gfxData>
+      </sprite>
+      <sprite index="7" name="" InkColor="11" BGcolor="0">
+        <gfxData>00071F3F7F71FFFF7B7C3F1F0702020600E0F8FCFE8EFFFFDE3EFCF8E0404060</gfxData>
+      </sprite>
+      <sprite index="8" name="" InkColor="9" BGcolor="0">
+        <gfxData>05071F3F7F7F7F7D7F7F783F1F04040C40C0F0F8FCFCFC7CFCFC3CF8F0404060</gfxData>
+      </sprite>
+      <sprite index="9" name="" InkColor="14" BGcolor="0">
+        <gfxData>051E3F6F576E3F00070507040603020660F8F4EA76BE7C00E060E02060C04060</gfxData>
+      </sprite>
+    </spriteset>
+  </sprites>
+</msxOpenDocument>

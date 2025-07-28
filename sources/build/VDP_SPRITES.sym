@@ -1,41 +1,39 @@
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
-Hexadecimal [16-Bits]
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 1
+Hexadecimal [24-Bits]
 
 Symbol Table
 
-    .__.$$$.                                                    =  2710 L
-    .__.ABS.                                                    =  0000 G
-    .__.CPU.                                                    =  0000 L
-    .__.H$L.                                                    =  0000 L
-  0 ENDOFF                                                         00CE R
-  0 GetSPRattrVADDR                                                002C R
-    ReadByteFromVRAM                                               **** GX
-  0 SPRITEOFF                                                      00BF R
-  0 WRTPAT                                                         005C R
-    WriteByte2VRAM                                                 **** GX
-  0 _PUTSPRITE                                                     0000 GR
-  1 _SPRITEYBUFF                                                   0000 GR
-  0 _SetEarlyClock                                                 00D1 GR
-  0 _SetSpriteColor                                                0061 GR
-  0 _SetSpritePattern                                              0038 GR
-  0 _SetSpritePosition                                             007B GR
-  0 _SetSpriteVisible                                              0099 GR
-  0 _UnsetEarlyClock                                               00EF GR
-  0 setSpritePattern                                               0051 R
+    .__.$$$.                                                    =  002710 L
+    .__.ABS.                                                    =  000000 G
+    .__.CPU.                                                    =  000000 L
+    .__.H$L.                                                    =  000000 L
+    GetSPRattrVADDR                                                ****** GX
+    GetSpritePattern                                               ****** GX
+    ReadByteFromVRAM                                               ****** GX
+  0 SPRITE_EC_WRVRAM                                               000078 R
+  0 SPRITE_disable                                                 000076 R
+  0 SPRITE_hide                                                    000055 R
+    WriteByteToVRAM                                                ****** GX
+  1 _SPRITEYBUFF                                                   000000 GR
+  0 _SetEarlyClock                                                 000064 GR
+  0 _SetSpriteColor                                                00000D GR
+  0 _SetSpritePattern                                              000000 GR
+  0 _SetSpritePosition                                             000022 GR
+  0 _SetSpriteVisible                                              00003E GR
 
 
-ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
-Hexadecimal [16-Bits]
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
+Hexadecimal [24-Bits]
 
 Area Table
 
-   0 _CODE                                      size  10B   flags    0
-   1 _DATA                                      size   20   flags    0
-   2 _INITIALIZED                               size    0   flags    0
-   3 _DABS                                      size    0   flags    8
-   4 _HOME                                      size    0   flags    0
-   5 _GSINIT                                    size    0   flags    0
-   6 _GSFINAL                                   size    0   flags    0
-   7 _INITIALIZER                               size    0   flags    0
-   8 _CABS                                      size    0   flags    8
+   0 _CODE                                      size     7B   flags    0
+   1 _DATA                                      size     20   flags    0
+   2 _INITIALIZED                               size      0   flags    0
+   3 _DABS                                      size      0   flags    8
+   4 _HOME                                      size      0   flags    0
+   5 _GSINIT                                    size      0   flags    0
+   6 _GSFINAL                                   size      0   flags    0
+   7 _INITIALIZER                               size      0   flags    0
+   8 _CABS                                      size      0   flags    8
 
