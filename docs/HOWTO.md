@@ -221,7 +221,7 @@ This example performs the following actions:
 
 <br/>
 
-![Example screenshot](../examples/data/EXAMPLE1_01.png)
+![Example screenshot](../docs/pics/EXAMPLE1_01.png)
 
 <br/>
 
@@ -328,7 +328,7 @@ To obtain a binary with the ROM of the example program, execute the following st
 1. Compile with SDCC
 
 ```
-sdcc -mz80 --code-loc 0x4020 --data-loc 0xC000 --use-stdout --no-std-crt0 crt0_MSX816kROM4000.rel VDP_TMS9918A_MSXBIOS.rel VDP_SPRITES_MSXBIOS.rel Example01.c
+sdcc -mz80 --code-loc 0x4020 --data-loc 0xC000 --use-stdout --no-std-crt0 crt0_MSX816kROM4000.rel VDP_TMS9918A.rel VDP_SPRITES.rel Example01.c
 ```
 
 <br/>
