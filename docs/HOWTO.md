@@ -26,7 +26,7 @@
 
 ## 1 Description
 
-C Library functions for directly accessing sprite attributes from the TMS9918A/28A/29A video processor.
+C function library for directly accessing sprite attributes from the TMS9918A/28A/29A video processor.
 
 Provides a set of sprite-specific functions, including positioning, color, pattern mapping, visibility, and set EarlyClock (horizontal shift left 32 pixels.).
 

@@ -9,7 +9,7 @@
 - Compiler: SDCC 4.4 or newer 
 
 ## Description:
-C Library functions for directly accessing sprite attributes from the 
+C function library for directly accessing sprite attributes from the 
 TMS9918A/28A/29A video processor.
 
 This library requires one of the VDP TMS9918A access libraries from 
